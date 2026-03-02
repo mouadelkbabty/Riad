@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RoomService } from '../../../core/services/room.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
-import { Room, RoomType, ROOM_TYPE_LABELS } from '../../../core/models';
+import { Room, RoomType, ROOM_TYPE_LABELS, RoomRequest } from '../../../core/models';
 
 @Component({
   selector: 'app-room-management',
@@ -144,14 +144,19 @@ export class RoomManagementComponent implements OnInit {
     value: k, label: ROOM_TYPE_LABELS[k],
   }));
 
-  formData = this.emptyForm();
+  formData: RoomRequest = this.emptyForm();
 
   ngOnInit() { this.loadRooms(); }
 
   openForm(room: Room | null) {
     this.editingRoom.set(room);
     this.formData = room
-      ? { ...room }
+      ? {
+          ...room,
+          descriptionFr: (room as any).descriptionFr ?? '',
+          descriptionAr: (room as any).descriptionAr ?? '',
+          available: (room as any).available ?? true,
+        }
       : this.emptyForm();
     this.amenitiesStr = room ? (room.amenities || []).join(', ') : '';
     this.showForm.set(true);
@@ -208,7 +213,7 @@ export class RoomManagementComponent implements OnInit {
     });
   }
 
-  private emptyForm() {
-    return { name: '', type: 'STANDARD' as RoomType, pricePerNight: 800, capacity: 2, surface: 25, description: '', descriptionFr: '', available: true };
+  private emptyForm(): RoomRequest {
+    return { name: '', description: '', descriptionFr: '', descriptionAr: '', type: 'STANDARD' as RoomType, pricePerNight: 800, capacity: 2, surface: 25, available: true, amenities: [] };
   }
 }

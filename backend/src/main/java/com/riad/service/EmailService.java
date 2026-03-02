@@ -15,6 +15,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.util.Locale;
+import java.io.UnsupportedEncodingException;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +93,8 @@ public class EmailService {
             String html = templateEngine.process(templateName, context);
             sendEmail(reservation.getUser().getEmail(), subject, html);
         } catch (Exception e) {
-            log.error("Erreur email mise à jour réservation {}: {}", reservation.getReservationNumber(), e.getMessage());
+            log.error("Erreur email mise à jour réservation {}: {}", reservation.getReservationNumber(),
+                    e.getMessage());
         }
     }
 
@@ -127,7 +129,11 @@ public class EmailService {
     private void sendEmail(String to, String subject, String htmlContent) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(fromEmail, fromName);
+        try {
+            helper.setFrom(fromEmail, fromName);
+        } catch (UnsupportedEncodingException e) {
+            throw new MessagingException("Invalid encoding for fromName", e);
+        }
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(htmlContent, true);
