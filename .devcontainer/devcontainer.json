@@ -1,10 +1,10 @@
 {
   "name": "Riad Dar Atlas — Full Stack",
-  "dockerComposeFile": "../docker-compose.dev.yml",
-  "service": "devcontainer",
-  "workspaceFolder": "/workspace",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "workspaceFolder": "/workspaces/Riad",
 
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
       "jdk": "ms"
@@ -24,7 +24,7 @@
     "1025": { "label": "MailHog SMTP",       "onAutoForward": "ignore" }
   },
 
-  "postCreateCommand": "cd /workspace/backend && mvn dependency:resolve -q && cd /workspace/frontend && npm install --prefer-offline",
+  "postCreateCommand": "cd /workspaces/Riad/backend && mvn dependency:resolve -q && cd /workspaces/Riad/frontend && npm install --prefer-offline",
 
   "postStartCommand": "echo '✅ Riad Dev Environment ready! Run start-dev.sh to launch all services.'",
 
@@ -33,7 +33,7 @@
       "settings": {
         "java.home": "/usr/local/sdkman/candidates/java/current",
         "java.configuration.runtimes": [
-          { "name": "JavaSE-21", "path": "/usr/local/sdkman/candidates/java/current" }
+          { "name": "JavaSE-21", "path": "/usr/local/sdkman/candidates/java/current", "default": true }
         ],
         "editor.formatOnSave": true,
         "editor.tabSize": 2,
