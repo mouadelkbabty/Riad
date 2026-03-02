@@ -1,0 +1,97 @@
+version: '3.9'
+
+services:
+
+  # ──────────────── PostgreSQL ────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: riad-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-riaddb}
+      POSTGRES_USER: ${DB_USERNAME:-riad}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-riad} -d ${DB_NAME:-riaddb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - riad-network
+
+  # ──────────────── Backend ────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: riad-backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JDBC_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-riaddb}
+      DB_USERNAME: ${DB_USERNAME:-riad}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-Le Riad}
+      FRONTEND_URL: ${FRONTEND_URL}
+      BASE_URL: ${BASE_URL}
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - uploads_data:/app/uploads
+      - logs_data:/var/log/riad
+    ports:
+      - "8080:8080"
+    networks:
+      - riad-network
+
+  # ──────────────── MailHog (Dev uniquement) ────────────────
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: riad-mailhog
+    profiles: ["dev"]
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # UI web
+    networks:
+      - riad-network
+
+  # ──────────────── Nginx Reverse Proxy ────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: riad-nginx
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - uploads_data:/var/www/uploads:ro
+    networks:
+      - riad-network
+
+volumes:
+  postgres_data:
+    driver: local
+  uploads_data:
+    driver: local
+  logs_data:
+    driver: local
+
+networks:
+  riad-network:
+    driver: bridge

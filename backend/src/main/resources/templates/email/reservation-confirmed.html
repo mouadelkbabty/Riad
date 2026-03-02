@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Réservation confirmée</title>
+    <style>
+        body { font-family:'Georgia',serif; background:#f9f5f0; margin:0; padding:0; color:#3d2b1f; }
+        .container { max-width:620px; margin:30px auto; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.08); }
+        .header { background:linear-gradient(135deg,#2d6a4f,#52b788); padding:40px 30px; text-align:center; }
+        .header h1 { color:#fff; font-size:28px; margin:0; }
+        .header p { color:#d8f3dc; margin:8px 0 0; }
+        .body { padding:35px 40px; }
+        .check { font-size:60px; text-align:center; margin:10px 0; }
+        .info-box { background:#fdf6ee; border-left:4px solid #52b788; border-radius:6px; padding:20px 24px; margin:20px 0; }
+        .info-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #e8d5c0; font-size:14px; }
+        .info-row:last-child { border-bottom:none; }
+        .label { color:#888; } .value { font-weight:bold; }
+        .btn { display:block; text-align:center; background:#2d6a4f; color:#fff !important; padding:14px; border-radius:25px; text-decoration:none; margin:24px auto; width:200px; }
+        .footer { background:#f5ede4; padding:20px; text-align:center; font-size:12px; color:#a0856e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🕌 Riad</h1>
+        <p>Votre réservation est confirmée !</p>
+    </div>
+    <div class="body">
+        <div class="check">✅</div>
+        <h2 style="text-align:center; color:#2d6a4f;">Bonne nouvelle !</h2>
+        <p>Cher(e) <strong th:text="${user.getFullName()}">Client</strong>, nous avons le plaisir de vous confirmer votre réservation <strong th:text="${reservation.reservationNumber}">RIAD-XXXX</strong>.</p>
+        <div class="info-box">
+            <div class="info-row"><span class="label">Chambre</span><span class="value" th:text="${room.name}"></span></div>
+            <div class="info-row"><span class="label">Arrivée</span><span class="value" th:text="${#temporals.format(reservation.checkIn,'dd/MM/yyyy')}"></span></div>
+            <div class="info-row"><span class="label">Départ</span><span class="value" th:text="${#temporals.format(reservation.checkOut,'dd/MM/yyyy')}"></span></div>
+            <div class="info-row"><span class="label">Total</span><span class="value" th:text="${#numbers.formatDecimal(reservation.totalPrice,1,2) + ' MAD'}"></span></div>
+        </div>
+        <p>Nous vous attendons avec impatience ! N'hésitez pas à nous contacter pour vos besoins.</p>
+        <a th:href="${frontendUrl + '/reservations/' + reservation.id}" class="btn">Voir ma réservation</a>
+    </div>
+    <div class="footer">📍 Medina, Marrakech, Maroc | contact@riad.ma</div>
+</div>
+</body>
+</html>

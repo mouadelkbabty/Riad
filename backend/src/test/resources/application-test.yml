@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    defer-datasource-initialization: true
+
+  flyway:
+    enabled: false
+
+  mail:
+    host: localhost
+    port: 1025
+
+application:
+  security:
+    jwt:
+      secret-key: test-secret-key-minimum-256-bits-long-for-hs512-algorithm
+      access-token-expiration: 3600000
+      refresh-token-expiration: 86400000
+  storage:
+    upload-dir: ./test-uploads
+    max-file-size: 5242880
+    allowed-extensions: jpg,jpeg,png,webp,avif
+  mail:
+    from: test@riad.ma
+    from-name: Riad Test
+  frontend-url: http://localhost:3000
+  base-url: http://localhost:8080

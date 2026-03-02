@@ -1,0 +1,48 @@
+# ── Java / Maven ──────────────────────────────────────────────
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/*.class
+
+# ── Node / Angular ────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.cache/
+frontend/coverage/
+
+# ── IDEs ──────────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+
+# ── Docker / secrets ──────────────────────────────────────────
+.env
+*.env.local
+backend/.env
+
+# ── OS ────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
+*.pid
+
+# ── Uploads (local dev only) ──────────────────────────────────
+uploads/
+
+# ── SSL certs ─────────────────────────────────────────────────
+backend/nginx/ssl/
+*.pem
+*.crt
+*.key

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Bienvenue au Riad</title>
+<style>
+body{font-family:'Georgia',serif;background:#f9f5f0;margin:0;padding:0;color:#3d2b1f;}
+.container{max-width:620px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.header{background:linear-gradient(135deg,#8B4513,#D2691E);padding:40px 30px;text-align:center;}
+.header h1{color:#fff;font-size:32px;margin:0;letter-spacing:3px;}.header p{color:#f4d9c6;margin:8px 0 0;}
+.body{padding:35px 40px;}
+.btn{display:block;text-align:center;background:#8B4513;color:#fff !important;padding:14px;border-radius:25px;text-decoration:none;margin:24px auto;width:200px;}
+.feature{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed #f0e0d0;}
+.feature:last-child{border-bottom:none;}
+.footer{background:#f5ede4;padding:20px;text-align:center;font-size:12px;color:#a0856e;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header"><h1>🕌 Riad</h1><p>Bienvenue dans notre univers</p></div>
+  <div class="body">
+    <h2>Bienvenue, <span th:text="${user.firstName}">Prénom</span> !</h2>
+    <p>Nous sommes ravis de vous accueillir dans la grande famille du Riad. Votre compte a été créé avec succès.</p>
+    <div class="feature"><span>🛌</span><span>Découvrez nos <strong>chambres et suites</strong> à l'architecture traditionnelle</span></div>
+    <div class="feature"><span>📅</span><span>Réservez facilement en ligne avec <strong>confirmation instantanée</strong></span></div>
+    <div class="feature"><span>🛡️</span><span>Votre séjour est <strong>sécurisé et flexible</strong></span></div>
+    <a th:href="${frontendUrl + '/rooms'}" class="btn">Explorer les chambres</a>
+  </div>
+  <div class="footer">📍 Medina, Marrakech, Maroc | contact@riad.ma</div>
+</div>
+</body>
+</html>

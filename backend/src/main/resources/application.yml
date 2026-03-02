@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: riad-backend
+  profiles:
+    active: dev
+
+  # ============= JPA =============
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # ============= FILE UPLOAD =============
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 20MB
+
+  # ============= THYMELEAF =============
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+
+# ============= ACTUATOR =============
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# ============= APPLICATION PROPERTIES =============
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      access-token-expiration: 86400000   # 24h en ms
+      refresh-token-expiration: 604800000 # 7 jours en ms
+  storage:
+    upload-dir: ${UPLOAD_DIR:./uploads}
+    max-file-size: 5242880 # 5 MB
+    allowed-extensions: jpg,jpeg,png,webp,avif
+  mail:
+    from: ${MAIL_FROM:noreply@riad.ma}
+    from-name: ${MAIL_FROM_NAME:Le Riad}
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  base-url: ${BASE_URL:http://localhost:8080}
+
+# ============= SPRINGDOC =============
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    try-it-out-enabled: true

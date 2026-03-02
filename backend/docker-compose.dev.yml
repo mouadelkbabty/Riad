@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: riad-postgres-dev
+    environment:
+      POSTGRES_DB: riaddb
+      POSTGRES_USER: riad
+      POSTGRES_PASSWORD: riad123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - riad-dev-network
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: riad-mailhog-dev
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - riad-dev-network
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  riad-dev-network:
+    driver: bridge

@@ -1,0 +1,60 @@
+{
+  "name": "Riad Dar Atlas — Full Stack",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "jdk": "ms"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  "forwardPorts": [4200, 8080, 5432, 8025, 1025],
+  "portsAttributes": {
+    "4200": { "label": "Angular Frontend",   "onAutoForward": "openBrowser" },
+    "8080": { "label": "Spring Boot API",    "onAutoForward": "notify" },
+    "5432": { "label": "PostgreSQL",         "onAutoForward": "ignore" },
+    "8025": { "label": "MailHog Web UI",     "onAutoForward": "notify" },
+    "1025": { "label": "MailHog SMTP",       "onAutoForward": "ignore" }
+  },
+
+  "postCreateCommand": "cd /workspace/backend && mvn dependency:resolve -q && cd /workspace/frontend && npm install --prefer-offline",
+
+  "postStartCommand": "echo '✅ Riad Dev Environment ready! Run start-dev.sh to launch all services.'",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "java.home": "/usr/local/sdkman/candidates/java/current",
+        "java.configuration.runtimes": [
+          { "name": "JavaSE-21", "path": "/usr/local/sdkman/candidates/java/current" }
+        ],
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "angular.enable-strict-mode-prompt": false,
+        "tailwindCSS.includeLanguages": { "typescript": "html", "javascript": "html" }
+      },
+      "extensions": [
+        "Angular.ng-template",
+        "bradlc.vscode-tailwindcss",
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "Pivotal.vscode-spring-boot",
+        "redhat.vscode-xml",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "GitHub.copilot"
+      ]
+    }
+  },
+
+  "remoteUser": "vscode"
+}

@@ -1,0 +1,105 @@
+version: '3.9'
+
+# ─────────────────────────────────────────────────────────────
+# Full stack: PostgreSQL + Backend + Frontend + MailHog + Nginx
+# Usage (dev): docker compose -f docker-compose.full.yml --profile dev up -d
+# Usage (prod): docker compose -f docker-compose.full.yml up -d
+# ─────────────────────────────────────────────────────────────
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: riad_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-riaddb}
+      POSTGRES_USER:     ${POSTGRES_USER:-riad}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-riad_secret}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - riad-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-riad}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: riad_mailhog
+    profiles: [dev]
+    restart: unless-stopped
+    ports:
+      - "8025:8025"   # Web UI
+    networks:
+      - riad-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: riad_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE:    ${SPRING_PROFILES_ACTIVE:-prod}
+      JDBC_URL:                  jdbc:postgresql://postgres:5432/${POSTGRES_DB:-riaddb}
+      POSTGRES_USER:             ${POSTGRES_USER:-riad}
+      POSTGRES_PASSWORD:         ${POSTGRES_PASSWORD:-riad_secret}
+      JWT_SECRET_KEY:            ${JWT_SECRET_KEY}
+      MAIL_HOST:                 ${MAIL_HOST:-mailhog}
+      MAIL_PORT:                 ${MAIL_PORT:-1025}
+      MAIL_USERNAME:             ${MAIL_USERNAME:-}
+      MAIL_PASSWORD:             ${MAIL_PASSWORD:-}
+      APP_UPLOAD_DIR:            /app/uploads
+    volumes:
+      - uploads_data:/app/uploads
+      - logs_data:/var/log/riad
+    networks:
+      - riad-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: riad_frontend
+    restart: unless-stopped
+    networks:
+      - riad-network
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: riad_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - riad-network
+
+volumes:
+  postgres_data:
+  uploads_data:
+  logs_data:
+
+networks:
+  riad-network:
+    driver: bridge

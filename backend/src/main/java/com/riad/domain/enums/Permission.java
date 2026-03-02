@@ -1,0 +1,17 @@
+package com.riad.domain.enums;
+
+public enum Permission {
+    RESERVATION_READ,
+    RESERVATION_CREATE,
+    RESERVATION_UPDATE,
+    RESERVATION_DELETE,
+    ROOM_READ,
+    ROOM_CREATE,
+    ROOM_UPDATE,
+    ROOM_DELETE,
+    PHOTO_CREATE,
+    PHOTO_DELETE,
+    USER_READ,
+    USER_UPDATE,
+    USER_DELETE
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Confirmation de réservation</title>
+    <style>
+        body { font-family: 'Georgia', serif; background:#f9f5f0; margin:0; padding:0; color:#3d2b1f; }
+        .container { max-width:620px; margin:30px auto; background:#fff; border-radius:12px;
+                     box-shadow:0 4px 20px rgba(0,0,0,.08); overflow:hidden; }
+        .header { background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+                  padding:40px 30px; text-align:center; }
+        .header h1 { color:#fff; margin:0; font-size:28px; letter-spacing:2px; }
+        .header p  { color:#f4d9c6; margin:8px 0 0; font-size:14px; }
+        .badge { display:inline-block; background:rgba(255,255,255,.2);
+                 color:#fff; padding:6px 16px; border-radius:20px;
+                 font-size:13px; margin-top:12px; letter-spacing:1px; }
+        .body { padding:35px 40px; }
+        .greeting { font-size:20px; margin-bottom:16px; }
+        .info-box { background:#fdf6ee; border-left:4px solid #D2691E;
+                    border-radius:6px; padding:20px 24px; margin:20px 0; }
+        .info-box h3 { margin:0 0 14px; color:#8B4513; font-size:16px; }
+        .info-row { display:flex; justify-content:space-between; padding:6px 0;
+                    border-bottom:1px dashed #e8d5c0; font-size:14px; }
+        .info-row:last-child { border-bottom:none; }
+        .info-row .label { color:#888; }
+        .info-row .value { font-weight:bold; color:#3d2b1f; }
+        .total-row { background:#8B4513; color:#fff; padding:14px 20px;
+                     border-radius:6px; display:flex; justify-content:space-between;
+                     margin-top:10px; font-size:16px; font-weight:bold; }
+        .status-badge { display:inline-block; padding:6px 18px; border-radius:20px;
+                        font-size:13px; font-weight:bold; }
+        .status-PENDING  { background:#fff3cd; color:#856404; }
+        .status-CONFIRMED { background:#d4edda; color:#155724; }
+        .divider { border:none; border-top:1px solid #f0e0d0; margin:28px 0; }
+        .note { background:#f0f9ff; border:1px solid #bee5eb; border-radius:6px;
+                padding:14px 18px; font-size:13px; color:#0c5460; margin-top:16px; }
+        .btn { display:inline-block; background:#8B4513; color:#fff !important;
+               padding:12px 28px; border-radius:25px; text-decoration:none;
+               font-size:14px; margin-top:20px; }
+        .footer { background:#f5ede4; padding:20px 30px; text-align:center; font-size:12px; color:#a0856e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🕌 Riad</h1>
+        <p>Votre demande de réservation a été reçue</p>
+        <div class="badge" th:text="${reservation.reservationNumber}">RIAD-XXXXXXXX</div>
+    </div>
+
+    <div class="body">
+        <p class="greeting">
+            Cher(e) <strong th:text="${user.getFullName()}">Client</strong>,
+        </p>
+        <p>Merci pour votre confiance ! Nous avons bien reçu votre demande de réservation et notre équipe va la traiter dans les plus brefs délais.</p>
+
+        <div class="info-box">
+            <h3>📍 Détails du séjour</h3>
+
+            <div class="info-row">
+                <span class="label">Chambre</span>
+                <span class="value" th:text="${room.name}">Chambre Jasmin</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Type</span>
+                <span class="value" th:text="${room.type.label}">Standard</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Arrivée</span>
+                <span class="value" th:text="${#temporals.format(reservation.checkIn, 'dd MMMM yyyy', #locale)}">01 jan 2026</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Départ</span>
+                <span class="value" th:text="${#temporals.format(reservation.checkOut, 'dd MMMM yyyy', #locale)}">05 jan 2026</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Durée</span>
+                <span class="value"><span th:text="${reservation.numberOfNights}">4</span> nuit(s)</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Voyageurs</span>
+                <span class="value" th:text="${reservation.numberOfGuests} + ' personne(s)'">2 personne(s)</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Statut</span>
+                <span class="status-badge" th:classappend="'status-' + ${reservation.status}"
+                      th:text="${reservation.status}">PENDING</span>
+            </div>
+        </div>
+
+        <div class="total-row">
+            <span>Total du séjour</span>
+            <span th:text="${#numbers.formatDecimal(reservation.totalPrice, 1, 2)} + ' MAD'">3 200 MAD</span>
+        </div>
+
+        <th:block th:if="${reservation.specialRequests != null and !reservation.specialRequests.isEmpty()}">
+            <hr class="divider"/>
+            <div class="info-box">
+                <h3>💬 Demandes spéciales</h3>
+                <p style="margin:0; font-size:14px;" th:text="${reservation.specialRequests}"></p>
+            </div>
+        </th:block>
+
+        <div class="note">
+            ℹ️ <strong>Prochaines étapes :</strong> Notre équipe va confirmer votre réservation par email. En cas de question, n'hésitez pas à nous contacter.
+        </div>
+
+        <div style="text-align:center; margin-top:28px;">
+            <a th:href="${frontendUrl + '/reservations/' + reservation.id}" class="btn">
+                Voir ma réservation
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📍 Medina, Marrakech, Maroc | 📞 +212 5XX-XXXXXX | ✉️ contact@riad.ma</p>
+        <p>© 2026 Riad — Tous droits réservés</p>
+    </div>
+</div>
+</body>
+</html>

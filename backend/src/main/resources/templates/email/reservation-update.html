@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Mise à jour réservation</title>
+<style>
+body{font-family:'Georgia',serif;background:#f9f5f0;margin:0;padding:0;}
+.container{max-width:580px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;}
+.header{background:linear-gradient(135deg,#8B4513,#D2691E);padding:36px;text-align:center;}
+.header h1{color:#fff;font-size:26px;margin:0;}
+.body{padding:32px 40px;}
+.footer{background:#f5ede4;padding:18px;text-align:center;font-size:12px;color:#a0856e;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header"><h1>🕌 Riad - Mise à jour réservation</h1></div>
+  <div class="body">
+    <p>Cher(e) <strong th:text="${user.getFullName()}">Client</strong>,</p>
+    <p>Le statut de votre réservation <strong th:text="${reservation.reservationNumber}">RIAD-XXXX</strong> a été mis à jour.</p>
+    <p>Nouveau statut : <strong th:text="${reservation.status}">CONFIRMED</strong></p>
+  </div>
+  <div class="footer">📍 Medina, Marrakech, Maroc | contact@riad.ma</div>
+</div>
+</body>
+</html>

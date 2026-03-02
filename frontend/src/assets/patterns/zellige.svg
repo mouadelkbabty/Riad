@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Zellige-inspired geometric pattern -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <pattern id="zellige" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <!-- 8-pointed star -->
+      <polygon points="30,5 34,20 48,15 38,25 48,35 34,30 30,45 26,30 12,35 22,25 12,15 26,20"
+               fill="none" stroke="#d4891a" stroke-width="1" opacity="0.3"/>
+      <!-- Diamond -->
+      <rect x="25" y="25" width="10" height="10" transform="rotate(45, 30, 30)"
+            fill="none" stroke="#d4891a" stroke-width="0.5" opacity="0.3"/>
+      <!-- Corner diamonds -->
+      <rect x="-2" y="-2" width="4" height="4" transform="rotate(45, 0, 0)"
+            fill="#d4891a" opacity="0.2"/>
+      <rect x="58" y="-2" width="4" height="4" transform="rotate(45, 60, 0)"
+            fill="#d4891a" opacity="0.2"/>
+    </pattern>
+  </defs>
+  <rect width="120" height="120" fill="url(#zellige)"/>
+</svg>

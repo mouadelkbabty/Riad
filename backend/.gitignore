@@ -1,0 +1,14 @@
+target/
+*.class
+*.jar
+*.war
+.env
+uploads/
+test-uploads/
+*.log
+*.log.*
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+nginx/ssl/

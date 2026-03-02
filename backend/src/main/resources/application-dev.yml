@@ -1,0 +1,44 @@
+spring:
+  # ============= DATABASE H2 (DEV) =============
+  datasource:
+    url: jdbc:h2:mem:riaddb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true
+
+  flyway:
+    enabled: false # Désactivé en dev, on utilise JPA DDL
+
+  sql:
+    init:
+      mode: always
+
+  # ============= MAIL (DEV - MailHog) =============
+  mail:
+    host: localhost
+    port: 1025
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+logging:
+  level:
+    com.riad: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
