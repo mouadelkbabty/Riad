@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type Language = 'fr' | 'en' | 'ar';
+export type Language = 'fr' | 'en' | 'ar' | 'es';
 
 export interface Translations {
   // Navbar
@@ -78,6 +78,22 @@ export interface Translations {
     book: string;
     noPhotos: string;
     unavailable: string;
+  };
+  // Chatbot
+  chatbot: {
+    title: string;
+    placeholder: string;
+    send: string;
+    welcome: string;
+    typing: string;
+    error: string;
+    close: string;
+    open: string;
+    perNight: string;
+    capacity: string;
+    available: string;
+    unavailable: string;
+    viewRoom: string;
   };
   // Common
   common: {
@@ -161,6 +177,21 @@ const FR: Translations = {
     noPhotos: 'Aucune photo disponible',
     unavailable: 'Chambre non disponible',
   },
+  chatbot: {
+    title: 'Assistant Riad Lee',
+    placeholder: 'Posez votre question…',
+    send: 'Envoyer',
+    welcome: 'Bonjour ! Je suis l\'assistant virtuel du Riad Lee. Je peux vous aider avec les chambres, la disponibilité, les tarifs, les réservations et des informations sur Marrakech. Comment puis-je vous aider ?',
+    typing: 'L\'assistant rédige une réponse…',
+    error: 'Une erreur est survenue. Veuillez réessayer.',
+    close: 'Fermer le chat',
+    open: 'Ouvrir le chat',
+    perNight: '/ nuit',
+    capacity: 'pers.',
+    available: 'Disponible',
+    unavailable: 'Indisponible',
+    viewRoom: 'Voir la chambre',
+  },
   common: {
     loading: 'Chargement…',
     error: 'Erreur',
@@ -241,6 +272,21 @@ const EN: Translations = {
     book: 'Book now',
     noPhotos: 'No photos available',
     unavailable: 'Room not available',
+  },
+  chatbot: {
+    title: 'Riad Lee Assistant',
+    placeholder: 'Ask your question…',
+    send: 'Send',
+    welcome: 'Hello! I am the virtual assistant of Riad Lee. I can help you with rooms, availability, prices, reservations, and information about Marrakech. How can I assist you?',
+    typing: 'The assistant is typing…',
+    error: 'An error occurred. Please try again.',
+    close: 'Close chat',
+    open: 'Open chat',
+    perNight: '/ night',
+    capacity: 'pers.',
+    available: 'Available',
+    unavailable: 'Unavailable',
+    viewRoom: 'View room',
   },
   common: {
     loading: 'Loading…',
@@ -323,6 +369,21 @@ const AR: Translations = {
     noPhotos: 'لا توجد صور متاحة',
     unavailable: 'الغرفة غير متاحة',
   },
+  chatbot: {
+    title: 'مساعد رياض لي',
+    placeholder: 'اطرح سؤالك…',
+    send: 'إرسال',
+    welcome: 'مرحباً! أنا المساعد الافتراضي لرياض لي. يمكنني مساعدتك في الغرف والتوافر والأسعار والحجوزات ومعلومات عن مراكش. كيف يمكنني مساعدتك؟',
+    typing: 'المساعد يكتب رداً…',
+    error: 'حدث خطأ. يرجى المحاولة مرة أخرى.',
+    close: 'إغلاق الدردشة',
+    open: 'فتح الدردشة',
+    perNight: '/ ليلة',
+    capacity: 'شخص',
+    available: 'متاح',
+    unavailable: 'غير متاح',
+    viewRoom: 'عرض الغرفة',
+  },
   common: {
     loading: 'جارٍ التحميل…',
     error: 'خطأ',
@@ -332,7 +393,103 @@ const AR: Translations = {
   },
 };
 
-const TRANSLATIONS: Record<Language, Translations> = { fr: FR, en: EN, ar: AR };
+const ES: Translations = {
+  nav: {
+    rooms: 'Habitaciones',
+    admin: 'Administración',
+    book: 'Reservar',
+    logout: 'Cerrar sesión',
+    toggleDark: 'Modo oscuro',
+  },
+  home: {
+    heroSubtitle: 'Casa de huéspedes auténtica',
+    heroDesc: 'Una residencia histórica en el corazón de la medina de Marrakech, donde la arquitectura tradicional se encuentra con el confort contemporáneo.',
+    checkIn: 'Llegada',
+    checkOut: 'Salida',
+    guests: 'Huéspedes',
+    search: 'Buscar',
+    person: 'persona',
+    persons: 'personas',
+    featuredRooms: 'Habitaciones Destacadas',
+    featuredRoomsDesc: 'Descubra nuestros alojamientos más populares',
+    viewAll: 'Ver todas las habitaciones',
+    howItWorks: '¿Cómo funciona?',
+    howItWorksDesc: 'Un proceso simple y rápido, sin registro requerido',
+    step1Title: 'Elija una habitación',
+    step1Desc: 'Explore nuestras habitaciones y suites, descubra fotos y comodidades.',
+    step2Title: 'Complete el formulario',
+    step2Desc: 'Ingrese sus fechas, datos de contacto y envíe su solicitud en pocos clics.',
+    step3Title: 'Reciba la confirmación',
+    step3Desc: 'Nuestro equipo le contactará rápidamente para confirmar su reserva.',
+    ctaTitle: '¿Listo para una estancia inolvidable?',
+    ctaDesc: 'Reserve ahora y disfrute de una cálida bienvenida marroquí tradicional.',
+    viewRooms: 'Ver habitaciones',
+    v1Label: 'Arquitectura auténtica', v1Desc: 'Edificio del siglo XIX',
+    v2Label: 'Servicio personalizado', v2Desc: 'Disponible 24/7',
+    v3Label: 'Jardín y patio', v3Desc: 'Oasis de serenidad',
+    v4Label: 'Desayuno marroquí', v4Desc: 'Incluido bajo petición',
+  },
+  rooms: {
+    title: 'Nuestras Habitaciones y Suites',
+    subtitle: 'Elija su refugio de paz',
+    filters: 'Filtros',
+    roomType: 'Tipo de habitación',
+    allTypes: 'Todos los tipos',
+    maxPrice: 'Precio máx / noche (MAD)',
+    minCapacity: 'Capacidad mín.',
+    allCapacities: 'Todas',
+    personsPlus: '+ personas',
+    resetFilters: 'Restablecer filtros',
+    loading: 'Cargando habitaciones…',
+    noRooms: 'No hay habitaciones disponibles para estos criterios.',
+    clearFilters: 'Borrar filtros',
+    perNight: '/ noche',
+    view: 'Ver →',
+    unavailable: 'No disponible',
+    page: 'Página',
+    of: '/',
+  },
+  roomDetail: {
+    back: '← Volver a habitaciones',
+    bookRoom: 'Reservar esta habitación',
+    perNight: '/ noche',
+    capacity: 'personas',
+    surface: 'm²',
+    amenities: 'Comodidades',
+    checkIn: 'Llegada',
+    checkOut: 'Salida',
+    guests: 'Huéspedes',
+    nights: 'noches',
+    total: 'Total estimado',
+    book: 'Reservar ahora',
+    noPhotos: 'No hay fotos disponibles',
+    unavailable: 'Habitación no disponible',
+  },
+  chatbot: {
+    title: 'Asistente Riad Lee',
+    placeholder: 'Haga su pregunta…',
+    send: 'Enviar',
+    welcome: '¡Hola! Soy el asistente virtual del Riad Lee. Puedo ayudarle con habitaciones, disponibilidad, precios, reservas e información sobre Marrakech. ¿Cómo puedo ayudarle?',
+    typing: 'El asistente está escribiendo…',
+    error: 'Ocurrió un error. Por favor, inténtelo de nuevo.',
+    close: 'Cerrar chat',
+    open: 'Abrir chat',
+    perNight: '/ noche',
+    capacity: 'pers.',
+    available: 'Disponible',
+    unavailable: 'No disponible',
+    viewRoom: 'Ver habitación',
+  },
+  common: {
+    loading: 'Cargando…',
+    error: 'Error',
+    backToRooms: 'Volver a habitaciones',
+    home: 'Inicio',
+    rooms: 'Habitaciones',
+  },
+};
+
+const TRANSLATIONS: Record<Language, Translations> = { fr: FR, en: EN, ar: AR, es: ES };
 
 @Injectable({ providedIn: 'root' })
 export class I18nService {
@@ -355,10 +512,11 @@ export class I18nService {
 
   private getInitialLang(): Language {
     const stored = localStorage.getItem('riad-lang') as Language | null;
-    if (stored === 'fr' || stored === 'en' || stored === 'ar') return stored;
+    if (stored === 'fr' || stored === 'en' || stored === 'ar' || stored === 'es') return stored;
     const browserLang = navigator.language.slice(0, 2);
     if (browserLang === 'ar') return 'ar';
     if (browserLang === 'en') return 'en';
+    if (browserLang === 'es') return 'es';
     return 'fr';
   }
 }

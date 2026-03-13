@@ -19,7 +19,7 @@ interface Stat {
   template: `
   <div class="max-w-7xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-display font-bold text-riad-900 mb-2">Administration</h1>
-    <p class="text-gray-500 mb-10">Tableau de bord — Riad Dar Atlas</p>
+    <p class="text-gray-500 mb-10">Tableau de bord — Riad Lee</p>
 
     <!-- Stat cards -->
     @if (loading()) {

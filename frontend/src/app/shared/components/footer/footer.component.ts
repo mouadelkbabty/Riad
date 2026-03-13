@@ -18,14 +18,14 @@ import { RouterLink } from '@angular/router';
               <div class="w-10 h-10 rounded-full bg-riad-600 flex items-center justify-center">
                 <span class="text-white font-display font-bold">ر</span>
               </div>
-              <span class="font-display text-xl text-white">Riad Dar Atlas</span>
+              <span class="font-display text-xl text-white">Riad Lee</span>
             </div>
             <p class="text-sm leading-relaxed text-riad-400">
               Une demeure ancestrale au cœur de la médina, alliant
               architecture traditionnelle et confort moderne.
             </p>
             <p class="mt-4 text-sm text-riad-400 font-arabic">
-              دار الأطلس — بيت أصيل في قلب المدينة
+              رياض لي — بيت أصيل في قلب المدينة
             </p>
           </div>
 
@@ -54,8 +54,8 @@ import { RouterLink } from '@angular/router';
               </li>
               <li class="flex items-center gap-2">
                 <span>✉️</span>
-                <a href="mailto:contact@riad-daratlas.ma" class="hover:text-riad-300 transition-colors">
-                  contact&#64;riad-daratlas.ma
+                <a href="mailto:contact@riad-lee.ma" class="hover:text-riad-300 transition-colors">
+                  contact&#64;riad-lee.ma
                 </a>
               </li>
             </ul>
@@ -65,7 +65,7 @@ import { RouterLink } from '@angular/router';
         <!-- Bottom bar -->
         <div class="border-t border-riad-800 dark:border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row
                     items-center justify-between gap-4 text-xs text-riad-500">
-          <p>© {{ year }} Riad Dar Atlas. Tous droits réservés.</p>
+          <p>© {{ year }} Riad Lee. Tous droits réservés.</p>
           <p>Conçu avec ❤️ au Maroc</p>
         </div>
       </div>

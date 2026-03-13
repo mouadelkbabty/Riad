@@ -1,4 +1,4 @@
-# Riad Dar Atlas — Système de Réservation
+# Riad Lee — Système de Réservation
 
 Application web complète pour un riad marocain : galerie de photos, réservation en ligne avec confirmations par e-mail, espace client et tableau de bord administrateur.
 
@@ -181,4 +181,4 @@ Les ports 4200, 8080, 8025 seront automatiquement redirigés.
 
 ---
 
-*Riad Dar Atlas © 2024 — Fait avec ❤️ au Maroc*
+*Riad Lee © 2024 — Fait avec ❤️ au Maroc*

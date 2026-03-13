@@ -3,13 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ToastContainerComponent } from './shared/components/toast-container/toast-container.component';
+import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
 import { ThemeService } from './core/services/theme.service';
 import { I18nService } from './core/services/i18n.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, ToastContainerComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, ToastContainerComponent, ChatbotComponent],
   template: `
     <app-navbar />
     <main class="min-h-screen">
@@ -17,6 +18,7 @@ import { I18nService } from './core/services/i18n.service';
     </main>
     <app-footer />
     <app-toast-container />
+    <app-chatbot />
   `,
 })
 export class AppComponent {

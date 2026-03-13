@@ -17,7 +17,7 @@ import { ToastService } from '../../../core/services/toast.service';
             <span class="text-white font-display text-xl font-bold">ر</span>
           </div>
           <h1 class="text-2xl font-display font-semibold text-riad-900">Créer un compte</h1>
-          <p class="text-gray-500 text-sm mt-1">Rejoignez la famille Dar Atlas</p>
+          <p class="text-gray-500 text-sm mt-1">Rejoignez la famille Riad Lee</p>
         </div>
 
         <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
