@@ -29,7 +29,7 @@ public record GuestReservationRequest(
         Integer numberOfGuests,
 
         @NotNull(message = "La date d'arrivée est obligatoire")
-        @Future(message = "La date d'arrivée doit être dans le futur")
+        @FutureOrPresent(message = "La date d'arrivée doit être aujourd'hui ou dans le futur")
         LocalDate checkIn,
 
         @NotNull(message = "La date de départ est obligatoire")
