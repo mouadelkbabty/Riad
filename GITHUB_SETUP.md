@@ -16,7 +16,7 @@ git config user.email "vous@example.com"
 
 # Premier commit
 git add .
-git commit -m "feat: complete Riad Dar Atlas reservation system (backend + frontend)"
+git commit -m "feat: complete Riad Lee reservation system (backend + frontend)"
 ```
 
 ---
@@ -30,20 +30,20 @@ git commit -m "feat: complete Riad Dar Atlas reservation system (backend + front
 gh auth login
 
 # Créer et pousser en une commande
-gh repo create riad-daratlas --public --source=. --remote=origin --push
+gh repo create riad-lee --public --source=. --remote=origin --push
 ```
 
 ### Option B — Interface web
 
 1. Aller sur https://github.com/new
-2. Nom du repo : `riad-daratlas`
+2. Nom du repo : `riad-lee`
 3. Visibilité : **Public** (requis pour Codespaces gratuit)
 4. **Ne pas** cocher "Initialize with README"
 5. Cliquer **Create repository**
 6. Puis dans le terminal :
 
 ```powershell
-git remote add origin https://github.com/VOTRE_USERNAME/riad-daratlas.git
+git remote add origin https://github.com/VOTRE_USERNAME/riad-lee.git
 git branch -M main
 git push -u origin main
 ```
@@ -52,7 +52,7 @@ git push -u origin main
 
 ## Étape 3 — Créer un GitHub Codespace
 
-1. Aller sur https://github.com/VOTRE_USERNAME/riad-daratlas
+1. Aller sur https://github.com/VOTRE_USERNAME/riad-lee
 2. Cliquer le bouton vert **Code**
 3. Onglet **Codespaces**
 4. Cliquer **Create codespace on main**

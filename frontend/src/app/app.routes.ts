@@ -25,7 +25,7 @@ export const routes: Routes = [
     path: 'reserver',
     loadComponent: () =>
       import('./features/reservations/create-reservation/create-reservation.component').then(m => m.CreateReservationComponent),
-    title: 'Demande de réservation — Riad lee',
+    title: 'Demande de réservation — Riad Dar Atlas',
   },
   {
     path: 'auth/login',

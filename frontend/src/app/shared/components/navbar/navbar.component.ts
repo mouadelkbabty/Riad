@@ -219,6 +219,7 @@ export class NavbarComponent {
     { code: 'fr' as Language, label: 'Français', flag: '🇫🇷' },
     { code: 'en' as Language, label: 'English',  flag: '🇬🇧' },
     { code: 'ar' as Language, label: 'العربية',  flag: '🇲🇦' },
+    { code: 'es' as Language, label: 'Español',  flag: '🇪🇸' },
   ];
 
   currentLangLabel() {
