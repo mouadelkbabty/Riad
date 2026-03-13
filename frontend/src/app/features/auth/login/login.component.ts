@@ -18,15 +18,15 @@ import { ToastService } from '../../../core/services/toast.service';
           <div class="w-14 h-14 rounded-full bg-riad-600 flex items-center justify-center mx-auto mb-3">
             <span class="text-white font-display text-xl font-bold">ر</span>
           </div>
-          <h1 class="text-2xl font-display font-semibold text-riad-900">Bienvenue</h1>
-          <p class="text-gray-500 text-sm mt-1">Connectez-vous à votre compte</p>
+          <h1 class="text-2xl font-display font-semibold text-riad-900">Administration</h1>
+          <p class="text-gray-500 text-sm mt-1">Connectez-vous pour gérer le riad</p>
         </div>
 
         <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
           <div>
-            <label class="form-label">Adresse e-mail</label>
-            <input formControlName="email" type="email" autocomplete="email"
-                   placeholder="vous@exemple.com"
+            <label for="login-email" class="form-label">Adresse e-mail</label>
+            <input id="login-email" formControlName="email" type="email" autocomplete="email"
+                   placeholder="admin@riad.ma"
                    class="form-field"
                    [class.border-red-400]="submitted && form.get('email')?.invalid">
             @if (submitted && form.get('email')?.hasError('required')) {
@@ -35,14 +35,8 @@ import { ToastService } from '../../../core/services/toast.service';
           </div>
 
           <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="form-label mb-0">Mot de passe</label>
-              <a routerLink="/auth/forgot-password"
-                 class="text-xs text-riad-600 hover:underline">
-                Mot de passe oublié ?
-              </a>
-            </div>
-            <input formControlName="password" type="password" autocomplete="current-password"
+            <label for="login-password" class="form-label">Mot de passe</label>
+            <input id="login-password" formControlName="password" type="password" autocomplete="current-password"
                    placeholder="••••••••"
                    class="form-field"
                    [class.border-red-400]="submitted && form.get('password')?.invalid">
@@ -69,9 +63,8 @@ import { ToastService } from '../../../core/services/toast.service';
         </form>
 
         <p class="text-center text-sm text-gray-500 mt-6">
-          Pas encore de compte ?
-          <a routerLink="/auth/register" class="text-riad-600 font-medium hover:underline">
-            S'inscrire
+          <a routerLink="/" class="text-riad-600 font-medium hover:underline">
+            ← Retour au site
           </a>
         </p>
       </div>
@@ -105,7 +98,7 @@ export class LoginComponent {
     this.authService.login(this.form.getRawValue() as any).subscribe({
       next: () => {
         this.toast.success('Connexion réussie. Bienvenue !');
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
         this.router.navigateByUrl(returnUrl);
       },
       error: err => {

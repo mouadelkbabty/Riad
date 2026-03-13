@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import {
   ApiResponse, PageResponse, Reservation,
   ReservationRequest, CancelReservationRequest,
+  GuestReservationRequest,
   OccupiedDateRange, PageRequest
 } from '../models';
 
@@ -11,6 +12,10 @@ import {
 export class ReservationService {
   private readonly http = inject(HttpClient);
   private readonly api  = `${environment.apiUrl}/reservations`;
+
+  sendGuestRequest(body: GuestReservationRequest) {
+    return this.http.post<ApiResponse<void>>(`${this.api}/guest-request`, body);
+  }
 
   create(body: ReservationRequest) {
     return this.http.post<ApiResponse<Reservation>>(this.api, body);

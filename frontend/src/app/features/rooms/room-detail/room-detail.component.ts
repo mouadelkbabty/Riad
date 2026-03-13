@@ -3,7 +3,6 @@ import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RoomService } from '../../../core/services/room.service';
-import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { Room } from '../../../core/models';
@@ -101,20 +100,20 @@ import { format, addDays, differenceInDays } from 'date-fns';
 
             <div class="space-y-4">
               <div>
-                <label class="form-label">Arrivée</label>
-                <input type="date" [(ngModel)]="booking.checkIn"
+                <label for="booking-checkin" class="form-label">Arrivée</label>
+                <input id="booking-checkin" type="date" [(ngModel)]="booking.checkIn"
                        [min]="today" (ngModelChange)="recalculate()"
                        class="form-field">
               </div>
               <div>
-                <label class="form-label">Départ</label>
-                <input type="date" [(ngModel)]="booking.checkOut"
+                <label for="booking-checkout" class="form-label">Départ</label>
+                <input id="booking-checkout" type="date" [(ngModel)]="booking.checkOut"
                        [min]="booking.checkIn || today" (ngModelChange)="recalculate()"
                        class="form-field">
               </div>
               <div>
-                <label class="form-label">Voyageurs</label>
-                <select [(ngModel)]="booking.guests" class="form-field">
+                <label for="booking-guests" class="form-label">Voyageurs</label>
+                <select id="booking-guests" [(ngModel)]="booking.guests" class="form-field">
                   @for (n of guestOptions(); track n) {
                     <option [value]="n">{{ n }} personne{{ n > 1 ? 's' : '' }}</option>
                   }
@@ -129,7 +128,7 @@ import { format, addDays, differenceInDays } from 'date-fns';
                   </div>
                   <hr class="border-riad-200 my-2">
                   <div class="flex justify-between font-bold text-riad-800">
-                    <span>Total</span>
+                    <span>Total estimé</span>
                     <span>{{ total() | number }} MAD</span>
                   </div>
                 </div>
@@ -142,11 +141,7 @@ import { format, addDays, differenceInDays } from 'date-fns';
               } @else {
                 <button (click)="reserve()" [disabled]="!canReserve()"
                         class="btn-primary w-full justify-center py-3">
-                  @if (!authService.isLoggedIn()) {
-                    Se connecter pour réserver
-                  } @else {
-                    Réserver maintenant
-                  }
+                  Réserver maintenant
                 </button>
               }
             </div>
@@ -161,7 +156,6 @@ export class RoomDetailComponent implements OnInit {
   @Input() id!: string;
 
   private readonly roomService  = inject(RoomService);
-  readonly authService          = inject(AuthService);
   private readonly toast        = inject(ToastService);
   private readonly router       = inject(Router);
 
@@ -207,13 +201,7 @@ export class RoomDetailComponent implements OnInit {
   }
 
   reserve() {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/auth/login'], {
-        queryParams: { returnUrl: `/reservations/nouvelle?roomId=${this.id}` }
-      });
-      return;
-    }
-    this.router.navigate(['/reservations/nouvelle'], {
+    this.router.navigate(['/reserver'], {
       queryParams: {
         roomId:   this.id,
         checkIn:  this.booking.checkIn,

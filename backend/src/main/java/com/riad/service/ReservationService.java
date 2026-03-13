@@ -87,6 +87,50 @@ public class ReservationService {
         return toReservationResponse(saved);
     }
 
+    public void handleGuestReservationRequest(com.riad.dto.request.GuestReservationRequest request) {
+        Room room = roomRepository.findById(request.roomId())
+                .orElseThrow(() -> new ResourceNotFoundException("Chambre", request.roomId()));
+
+        if (!room.isAvailable()) {
+            throw new InvalidReservationException("La chambre '" + room.getName() + "' n'est pas disponible à la réservation");
+        }
+
+        if (!request.checkIn().isBefore(request.checkOut())) {
+            throw new InvalidReservationException("La date d'arrivée doit être strictement avant la date de départ");
+        }
+
+        if (request.checkIn().isBefore(LocalDate.now())) {
+            throw new InvalidReservationException("La date d'arrivée ne peut pas être dans le passé");
+        }
+
+        if (request.numberOfGuests() > room.getCapacity()) {
+            throw new InvalidReservationException(
+                    "La chambre '" + room.getName() + "' a une capacité maximale de " + room.getCapacity() + " personnes");
+        }
+
+        // Find admin email to send notification
+        String adminEmail = userRepository.findAll().stream()
+                .filter(u -> u.getRole().name().equals("ADMIN"))
+                .map(User::getEmail)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Aucun administrateur trouvé"));
+
+        emailService.sendGuestReservationRequestEmail(
+                adminEmail,
+                request.fullName(),
+                request.email(),
+                request.phone(),
+                request.numberOfGuests(),
+                request.checkIn(),
+                request.checkOut(),
+                room.getName(),
+                request.message()
+        );
+
+        log.info("Demande de réservation envoyée par {} pour la chambre {}",
+                request.email(), room.getName());
+    }
+
     @Transactional(readOnly = true)
     public ReservationResponse getReservationById(Long id, String userEmail) {
         Reservation reservation = reservationRepository.findById(id)

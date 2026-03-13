@@ -190,6 +190,36 @@ import { format, addDays } from 'date-fns';
     </div>
   </section>
 
+  <!-- ══════════ HOW TO BOOK ══════════ -->
+  <section class="py-20 px-4 bg-riad-50">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="section-title">Comment réserver en 3 étapes</h2>
+      <p class="section-subtitle">Un processus simple et rapide, sans inscription</p>
+
+      <div class="divider-ornament mt-6 mb-12">
+        <span class="text-2xl">✦</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card p-8 text-center">
+          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">1</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Choisissez une chambre</h3>
+          <p class="text-gray-500 text-sm">Parcourez nos chambres et suites, découvrez les photos et les équipements.</p>
+        </div>
+        <div class="card p-8 text-center">
+          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">2</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Remplissez le formulaire</h3>
+          <p class="text-gray-500 text-sm">Indiquez vos dates, vos coordonnées et envoyez votre demande en quelques clics.</p>
+        </div>
+        <div class="card p-8 text-center">
+          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">3</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Recevez la confirmation</h3>
+          <p class="text-gray-500 text-sm">Notre équipe vous contacte rapidement pour confirmer votre réservation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ CTA ══════════ -->
   <section class="py-24 px-4 text-center max-w-3xl mx-auto">
     <h2 class="section-title mb-4">Prêt pour un séjour inoubliable?</h2>
@@ -199,9 +229,6 @@ import { format, addDays } from 'date-fns';
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a routerLink="/chambres" class="btn-primary btn-lg">
         Voir les chambres
-      </a>
-      <a routerLink="/auth/register" class="btn-secondary btn-lg">
-        Créer un compte
       </a>
     </div>
   </section>
