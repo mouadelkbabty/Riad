@@ -7,31 +7,31 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./features/home/home.component').then(m => m.HomeComponent),
-    title: 'Riad Dar Atlas — Accueil',
+    title: 'Riad Lee — Accueil',
   },
   {
     path: 'chambres',
     loadComponent: () =>
       import('./features/rooms/room-list/room-list.component').then(m => m.RoomListComponent),
-    title: 'Nos Chambres — Riad Dar Atlas',
+    title: 'Nos Chambres — Riad Lee',
   },
   {
     path: 'chambres/:id',
     loadComponent: () =>
       import('./features/rooms/room-detail/room-detail.component').then(m => m.RoomDetailComponent),
-    title: 'Chambre — Riad Dar Atlas',
+    title: 'Chambre — Riad Lee',
   },
   {
     path: 'reserver',
     loadComponent: () =>
       import('./features/reservations/create-reservation/create-reservation.component').then(m => m.CreateReservationComponent),
-    title: 'Demande de réservation — Riad Dar Atlas',
+    title: 'Demande de réservation — Riad lee',
   },
   {
     path: 'auth/login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(m => m.LoginComponent),
-    title: 'Connexion — Riad Dar Atlas',
+    title: 'Connexion — Riad Lee',
   },
   {
     path: 'admin',
@@ -67,6 +67,6 @@ export const routes: Routes = [
     path: '**',
     loadComponent: () =>
       import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: 'Page introuvable — Riad Dar Atlas',
+    title: 'Page introuvable — Riad Lee',
   },
 ];

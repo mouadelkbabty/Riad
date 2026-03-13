@@ -25,10 +25,10 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
               <span class="text-white font-display font-bold text-sm">ر</span>
             </div>
             <span class="font-display font-semibold text-lg"
-                  [class.text-white]="!scrolled()"
-                  [class.text-riad-900]="scrolled() && theme.theme() === 'light'"
-                  [class.text-riad-200]="scrolled() && theme.theme() === 'dark'">
-              Riad Dar Atlas
+              [class.text-riad-900]="theme.theme() === 'light'"
+              [class.text-riad-200]="scrolled() && theme.theme() === 'dark'"
+              [class.text-white]="!scrolled() && theme.theme() === 'dark'">
+              Riad Lee
             </span>
           </a>
 
@@ -36,8 +36,8 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
           <div class="hidden md:flex items-center gap-4">
             <a routerLink="/chambres" routerLinkActive="font-semibold"
                class="text-sm transition-colors hover:text-riad-400"
-               [class.text-white]="!scrolled()"
-               [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
+               [class.text-gray-700]="theme.theme() === 'light'"
+               [class.text-white]="!scrolled() && theme.theme() === 'dark'"
                [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
               {{ i18n.t.nav.rooms }}
             </a>
@@ -45,11 +45,11 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
             <!-- Language switcher -->
             <div class="relative" data-menu>
               <button (click)="langOpen.set(!langOpen())"
-                      class="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-lg transition-colors
-                             hover:bg-black/10 dark:hover:bg-white/10"
-                      [class.text-white]="!scrolled()"
-                      [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
-                      [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
+                       class="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-lg transition-colors
+                         hover:bg-black/10 dark:hover:bg-white/10"
+                       [class.text-gray-700]="theme.theme() === 'light'"
+                       [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+                       [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
                 <span>{{ currentLangLabel() }}</span>
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -75,12 +75,12 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
             </div>
 
             <!-- Dark mode toggle -->
-            <button (click)="theme.toggle()"
-                    class="p-2 rounded-lg transition-colors hover:bg-black/10 dark:hover:bg-white/10"
-                    [class.text-white]="!scrolled()"
-                    [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
-                    [class.text-gray-300]="scrolled() && theme.theme() === 'dark'"
-                    [title]="i18n.t.nav.toggleDark">
+                <button (click)="theme.toggle()"
+                  class="p-2 rounded-lg transition-colors hover:bg-black/10 dark:hover:bg-white/10"
+                  [class.text-gray-700]="theme.theme() === 'light'"
+                  [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+                  [class.text-gray-300]="scrolled() && theme.theme() === 'dark'"
+                  [title]="i18n.t.nav.toggleDark">
               @if (theme.theme() === 'dark') {
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -95,11 +95,11 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
             </button>
 
             @if (auth.isLoggedIn() && auth.isAdmin()) {
-              <a routerLink="/admin" routerLinkActive="font-semibold"
-                 class="text-sm transition-colors hover:text-riad-400"
-                 [class.text-white]="!scrolled()"
-                 [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
-                 [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
+                <a routerLink="/admin" routerLinkActive="font-semibold"
+                  class="text-sm transition-colors hover:text-riad-400"
+                  [class.text-gray-700]="theme.theme() === 'light'"
+                  [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+                  [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
                 {{ i18n.t.nav.admin }}
               </a>
               <!-- Admin menu -->
@@ -133,11 +133,11 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
           <!-- Mobile: dark + hamburger -->
           <div class="md:hidden flex items-center gap-2">
             <!-- Mobile dark toggle -->
-            <button (click)="theme.toggle()"
-                    class="p-2 rounded-lg transition-colors"
-                    [class.text-white]="!scrolled()"
-                    [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
-                    [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
+                <button (click)="theme.toggle()"
+                  class="p-2 rounded-lg transition-colors"
+                  [class.text-gray-700]="theme.theme() === 'light'"
+                  [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+                  [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
               @if (theme.theme() === 'dark') {
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -151,11 +151,11 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
               }
             </button>
 
-            <button (click)="mobileOpen.set(!mobileOpen())"
-                    class="p-2 rounded-lg"
-                    [class.text-white]="!scrolled()"
-                    [class.text-gray-700]="scrolled() && theme.theme() === 'light'"
-                    [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
+                <button (click)="mobileOpen.set(!mobileOpen())"
+                  class="p-2 rounded-lg"
+                  [class.text-gray-700]="theme.theme() === 'light'"
+                  [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+                  [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 @if (mobileOpen()) {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
