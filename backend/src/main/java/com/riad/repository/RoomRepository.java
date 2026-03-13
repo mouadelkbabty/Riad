@@ -4,6 +4,7 @@ import com.riad.domain.entity.Room;
 import com.riad.domain.enums.RoomType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -13,13 +14,18 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificationExecutor<Room> {
 
     List<Room> findByAvailableTrue();
 
+    @EntityGraph(attributePaths = {"photos", "amenities"})
     Page<Room> findByAvailableTrue(Pageable pageable);
+
+    @EntityGraph(attributePaths = {"photos", "amenities"})
+    Optional<Room> findById(Long id);
 
     List<Room> findByType(RoomType type);
 
@@ -42,7 +48,7 @@ public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificat
     @Query("""
             SELECT r FROM Room r
             WHERE r.available = true
-            AND (:type IS NULL OR r.type = :type)
+            AND (:#{#type} IS NULL OR r.type = :type)
             AND (:minPrice IS NULL OR r.pricePerNight >= :minPrice)
             AND (:maxPrice IS NULL OR r.pricePerNight <= :maxPrice)
             AND (:minCapacity IS NULL OR r.capacity >= :minCapacity)

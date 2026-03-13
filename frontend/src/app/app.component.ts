@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ToastContainerComponent } from './shared/components/toast-container/toast-container.component';
+import { ThemeService } from './core/services/theme.service';
+import { I18nService } from './core/services/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -17,4 +19,8 @@ import { ToastContainerComponent } from './shared/components/toast-container/toa
     <app-toast-container />
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  // Inject to initialize theme and i18n on startup
+  readonly theme = inject(ThemeService);
+  readonly i18n  = inject(I18nService);
+}
