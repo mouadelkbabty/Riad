@@ -28,7 +28,7 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
                   [class.text-white]="!scrolled()"
                   [class.text-riad-900]="scrolled() && theme.theme() === 'light'"
                   [class.text-riad-200]="scrolled() && theme.theme() === 'dark'">
-              Riad Dar Atlas
+              Riad Lee
             </span>
           </a>
 
@@ -219,6 +219,7 @@ export class NavbarComponent {
     { code: 'fr' as Language, label: 'Français', flag: '🇫🇷' },
     { code: 'en' as Language, label: 'English',  flag: '🇬🇧' },
     { code: 'ar' as Language, label: 'العربية',  flag: '🇲🇦' },
+    { code: 'es' as Language, label: 'Español',  flag: '🇪🇸' },
   ];
 
   currentLangLabel() {

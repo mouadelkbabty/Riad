@@ -30,7 +30,7 @@ import { format, addDays } from 'date-fns';
         {{ i18n.t.home.heroSubtitle }}
       </p>
       <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-        Riad Dar Atlas
+        Riad Lee
       </h1>
       <p class="text-riad-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
         {{ i18n.t.home.heroDesc }}

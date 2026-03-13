@@ -39,6 +39,9 @@ public class SecurityConfig {
             "/api/v1/photos/**",
             "/api/v1/gallery/**",
             "/api/v1/reservations/rooms/*/occupied-dates",
+            "/api/chatbot/rooms",
+            "/api/chatbot/available-rooms",
+            "/api/chatbot/room/**",
             "/actuator/health",
             "/v3/api-docs/**",
             "/swagger-ui/**",
@@ -51,7 +54,8 @@ public class SecurityConfig {
             "/api/v1/auth/refresh-token",
             "/api/v1/auth/forgot-password",
             "/api/v1/auth/reset-password",
-            "/api/v1/reservations/guest-request"
+            "/api/v1/reservations/guest-request",
+            "/api/chatbot/message"
     };
 
     @Bean

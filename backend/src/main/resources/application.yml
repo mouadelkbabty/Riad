@@ -52,6 +52,12 @@ application:
   frontend-url: ${FRONTEND_URL:http://localhost:3000}
   base-url: ${BASE_URL:http://localhost:8080}
 
+# ============= CHATBOT =============
+chatbot:
+  huggingface:
+    api-token: ${HUGGINGFACE_API_TOKEN:}
+    model: ${HUGGINGFACE_MODEL:HuggingFaceH4/zephyr-7b-beta}
+
 # ============= SPRINGDOC =============
 springdoc:
   api-docs:
