@@ -99,6 +99,32 @@ public class EmailService {
     }
 
     @Async("emailTaskExecutor")
+    public void sendGuestReservationRequestEmail(String adminEmail,
+                                                  String fullName, String email, String phone,
+                                                  int numberOfGuests,
+                                                  java.time.LocalDate checkIn, java.time.LocalDate checkOut,
+                                                  String roomName, String message) {
+        try {
+            Context context = new Context(Locale.FRENCH);
+            context.setVariable("fullName", fullName);
+            context.setVariable("email", email);
+            context.setVariable("phone", phone);
+            context.setVariable("numberOfGuests", numberOfGuests);
+            context.setVariable("checkIn", checkIn);
+            context.setVariable("checkOut", checkOut);
+            context.setVariable("roomName", roomName);
+            context.setVariable("message", message);
+            context.setVariable("frontendUrl", frontendUrl);
+
+            String html = templateEngine.process("email/guest-reservation-request", context);
+            sendEmail(adminEmail, "Nouvelle demande de réservation — " + fullName, html);
+            log.info("Email de demande de réservation envoyé à l'admin pour le client: {}", email);
+        } catch (Exception e) {
+            log.error("Erreur lors de l'envoi de l'email de demande de réservation pour {}: {}", email, e.getMessage());
+        }
+    }
+
+    @Async("emailTaskExecutor")
     public void sendPasswordResetEmail(User user, String token) {
         try {
             Context context = new Context(Locale.FRENCH);

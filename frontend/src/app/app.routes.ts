@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { authGuard, guestGuard, adminGuard } from './core/guards';
+import { authGuard } from './core/guards';
+import { adminGuard } from './core/guards';
 
 export const routes: Routes = [
   {
@@ -21,66 +22,16 @@ export const routes: Routes = [
     title: 'Chambre — Riad Dar Atlas',
   },
   {
-    path: 'auth',
-    canActivate: [guestGuard],
-    children: [
-      {
-        path: 'login',
-        loadComponent: () =>
-          import('./features/auth/login/login.component').then(m => m.LoginComponent),
-        title: 'Connexion — Riad Dar Atlas',
-      },
-      {
-        path: 'register',
-        loadComponent: () =>
-          import('./features/auth/register/register.component').then(m => m.RegisterComponent),
-        title: 'Inscription — Riad Dar Atlas',
-      },
-      {
-        path: 'forgot-password',
-        loadComponent: () =>
-          import('./features/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
-        title: 'Mot de passe oublié — Riad Dar Atlas',
-      },
-      {
-        path: 'reset-password',
-        loadComponent: () =>
-          import('./features/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
-        title: 'Réinitialiser le mot de passe — Riad Dar Atlas',
-      },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-    ],
-  },
-  {
-    path: 'reservations',
-    canActivate: [authGuard],
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./features/reservations/my-reservations/my-reservations.component').then(m => m.MyReservationsComponent),
-        title: 'Mes Réservations — Riad Dar Atlas',
-      },
-      {
-        path: 'nouvelle',
-        loadComponent: () =>
-          import('./features/reservations/create-reservation/create-reservation.component').then(m => m.CreateReservationComponent),
-        title: 'Nouvelle Réservation — Riad Dar Atlas',
-      },
-      {
-        path: ':id',
-        loadComponent: () =>
-          import('./features/reservations/reservation-detail/reservation-detail.component').then(m => m.ReservationDetailComponent),
-        title: 'Détails Réservation — Riad Dar Atlas',
-      },
-    ],
-  },
-  {
-    path: 'profil',
-    canActivate: [authGuard],
+    path: 'reserver',
     loadComponent: () =>
-      import('./features/profile/profile.component').then(m => m.ProfileComponent),
-    title: 'Mon Profil — Riad Dar Atlas',
+      import('./features/reservations/create-reservation/create-reservation.component').then(m => m.CreateReservationComponent),
+    title: 'Demande de réservation — Riad Dar Atlas',
+  },
+  {
+    path: 'auth/login',
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then(m => m.LoginComponent),
+    title: 'Connexion — Riad Dar Atlas',
   },
   {
     path: 'admin',

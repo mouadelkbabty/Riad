@@ -52,6 +52,17 @@ export interface ReservationRequest {
   specialRequests?: string;
 }
 
+export interface GuestReservationRequest {
+  roomId: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  numberOfGuests: number;
+  checkIn: string;
+  checkOut: string;
+  message?: string;
+}
+
 export interface CancelReservationRequest {
   reason: string;
 }

@@ -2,6 +2,7 @@ package com.riad.controller;
 
 import com.riad.domain.enums.ReservationStatus;
 import com.riad.dto.request.CancelReservationRequest;
+import com.riad.dto.request.GuestReservationRequest;
 import com.riad.dto.request.ReservationRequest;
 import com.riad.dto.response.ApiResponse;
 import com.riad.dto.response.PageResponse;
@@ -30,6 +31,15 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
+
+    @PostMapping("/guest-request")
+    @Operation(summary = "Envoyer une demande de réservation (visiteur sans compte)")
+    public ResponseEntity<ApiResponse<Void>> sendGuestReservationRequest(
+            @Valid @RequestBody GuestReservationRequest request) {
+        reservationService.handleGuestReservationRequest(request);
+        return ResponseEntity.ok(ApiResponse.success(null,
+                "Votre demande de réservation a été envoyée. Nous vous contacterons bientôt."));
+    }
 
     @PostMapping
     @Operation(summary = "Créer une réservation")

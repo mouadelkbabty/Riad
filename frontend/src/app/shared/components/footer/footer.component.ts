@@ -35,8 +35,6 @@ import { RouterLink } from '@angular/router';
             <ul class="space-y-2 text-sm">
               <li><a routerLink="/"            class="hover:text-riad-400 transition-colors">Accueil</a></li>
               <li><a routerLink="/chambres"     class="hover:text-riad-400 transition-colors">Nos Chambres</a></li>
-              <li><a routerLink="/reservations" class="hover:text-riad-400 transition-colors">Réservations</a></li>
-              <li><a routerLink="/auth/login"   class="hover:text-riad-400 transition-colors">Connexion</a></li>
             </ul>
           </div>
 

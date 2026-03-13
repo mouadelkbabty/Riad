@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nouvelle demande de réservation</title>
+    <style>
+        body { font-family: 'Georgia', serif; background:#f9f5f0; margin:0; padding:0; color:#3d2b1f; }
+        .container { max-width:620px; margin:30px auto; background:#fff; border-radius:12px;
+                     box-shadow:0 4px 20px rgba(0,0,0,.08); overflow:hidden; }
+        .header { background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+                  padding:40px 30px; text-align:center; }
+        .header h1 { color:#fff; margin:0; font-size:28px; letter-spacing:2px; }
+        .header p  { color:#f4d9c6; margin:8px 0 0; font-size:14px; }
+        .body { padding:35px 40px; }
+        .greeting { font-size:20px; margin-bottom:16px; }
+        .info-box { background:#fdf6ee; border-left:4px solid #D2691E;
+                    border-radius:6px; padding:20px 24px; margin:20px 0; }
+        .info-box h3 { margin:0 0 14px; color:#8B4513; font-size:16px; }
+        .info-row { display:flex; justify-content:space-between; padding:6px 0;
+                    border-bottom:1px dashed #e8d5c0; font-size:14px; }
+        .info-row:last-child { border-bottom:none; }
+        .info-row .label { color:#888; }
+        .info-row .value { font-weight:bold; color:#3d2b1f; }
+        .divider { border:none; border-top:1px solid #f0e0d0; margin:28px 0; }
+        .note { background:#f0f9ff; border:1px solid #bee5eb; border-radius:6px;
+                padding:14px 18px; font-size:13px; color:#0c5460; margin-top:16px; }
+        .footer { background:#f5ede4; padding:20px 30px; text-align:center; font-size:12px; color:#a0856e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🕌 Riad</h1>
+        <p>Nouvelle demande de réservation reçue</p>
+    </div>
+
+    <div class="body">
+        <p class="greeting">
+            Bonjour,
+        </p>
+        <p>Une nouvelle demande de réservation a été reçue via le site web. Voici les détails :</p>
+
+        <div class="info-box">
+            <h3>👤 Informations du client</h3>
+            <div class="info-row">
+                <span class="label">Nom complet</span>
+                <span class="value" th:text="${fullName}">Client</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Email</span>
+                <span class="value" th:text="${email}">client@example.com</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Téléphone</span>
+                <span class="value" th:text="${phone}">+212 600 000 000</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📍 Détails du séjour</h3>
+            <div class="info-row">
+                <span class="label">Chambre</span>
+                <span class="value" th:text="${roomName}">Chambre Jasmin</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Arrivée</span>
+                <span class="value" th:text="${#temporals.format(checkIn, 'dd MMMM yyyy', #locale)}">01 jan 2026</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Départ</span>
+                <span class="value" th:text="${#temporals.format(checkOut, 'dd MMMM yyyy', #locale)}">05 jan 2026</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Voyageurs</span>
+                <span class="value" th:text="${numberOfGuests} + ' personne(s)'">2 personne(s)</span>
+            </div>
+        </div>
+
+        <th:block th:if="${message != null and !message.isEmpty()}">
+            <hr class="divider"/>
+            <div class="info-box">
+                <h3>💬 Message du client</h3>
+                <p style="margin:0; font-size:14px;" th:text="${message}"></p>
+            </div>
+        </th:block>
+
+        <div class="note">
+            ℹ️ Veuillez contacter le client pour confirmer ou refuser cette demande de réservation.
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📍 Medina, Marrakech, Maroc | 📞 +212 5XX-XXXXXX | ✉️ contact@riad.ma</p>
+        <p>© 2026 Riad — Tous droits réservés</p>
+    </div>
+</div>
+</body>
+</html>

@@ -36,20 +36,13 @@ import { AuthService } from '../../../core/services/auth.service';
               Chambres
             </a>
 
-            @if (auth.isLoggedIn()) {
-              <a routerLink="/reservations" routerLinkActive="font-semibold"
+            @if (auth.isLoggedIn() && auth.isAdmin()) {
+              <a routerLink="/admin" routerLinkActive="font-semibold"
                  class="text-sm transition-colors hover:text-riad-500"
                  [class.text-white]="!scrolled()" [class.text-gray-700]="scrolled()">
-                Mes réservations
+                Administration
               </a>
-              @if (auth.isAdmin()) {
-                <a routerLink="/admin" routerLinkActive="font-semibold"
-                   class="text-sm transition-colors hover:text-riad-500"
-                   [class.text-white]="!scrolled()" [class.text-gray-700]="scrolled()">
-                  Administration
-                </a>
-              }
-              <!-- User menu -->
+              <!-- Admin menu -->
               <div class="relative">
                 <button (click)="menuOpen.set(!menuOpen())"
                         class="flex items-center gap-2 text-sm font-medium rounded-full
@@ -62,11 +55,6 @@ import { AuthService } from '../../../core/services/auth.service';
                 @if (menuOpen()) {
                   <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100
                               py-1 animate-fade-in">
-                    <a routerLink="/profil" (click)="menuOpen.set(false)"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50">
-                      Mon profil
-                    </a>
-                    <hr class="my-1 border-gray-100">
                     <button (click)="logout()"
                             class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                       Déconnexion
@@ -75,12 +63,7 @@ import { AuthService } from '../../../core/services/auth.service';
                 }
               </div>
             } @else {
-              <a routerLink="/auth/login"
-                 class="btn-secondary btn-sm">
-                Connexion
-              </a>
-              <a routerLink="/auth/register"
-                 class="btn-primary btn-sm">
+              <a routerLink="/chambres" class="btn-primary btn-sm">
                 Réserver
               </a>
             }
@@ -109,34 +92,15 @@ import { AuthService } from '../../../core/services/auth.service';
                class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50 rounded-lg">
               Chambres
             </a>
-            @if (auth.isLoggedIn()) {
-              <a routerLink="/reservations" (click)="mobileOpen.set(false)"
+            @if (auth.isLoggedIn() && auth.isAdmin()) {
+              <a routerLink="/admin" (click)="mobileOpen.set(false)"
                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50 rounded-lg">
-                Mes réservations
+                Administration
               </a>
-              <a routerLink="/profil" (click)="mobileOpen.set(false)"
-                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50 rounded-lg">
-                Mon profil
-              </a>
-              @if (auth.isAdmin()) {
-                <a routerLink="/admin" (click)="mobileOpen.set(false)"
-                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50 rounded-lg">
-                  Administration
-                </a>
-              }
               <button (click)="logout()"
                       class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg">
                 Déconnexion
               </button>
-            } @else {
-              <a routerLink="/auth/login" (click)="mobileOpen.set(false)"
-                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-riad-50 rounded-lg">
-                Connexion
-              </a>
-              <a routerLink="/auth/register" (click)="mobileOpen.set(false)"
-                 class="block px-4 py-2 text-sm font-medium text-riad-600 hover:bg-riad-50 rounded-lg">
-                S'inscrire
-              </a>
             }
           </div>
         }
