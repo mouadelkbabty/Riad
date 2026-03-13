@@ -9,14 +9,20 @@ export class RoomService {
   private readonly api  = `${environment.apiUrl}/rooms`;
 
   getAll(page: PageRequest = {}, filter: RoomFilter = {}) {
+    const hasFilter = filter.type || filter.minPrice != null || filter.maxPrice != null || filter.minCapacity != null;
     let params = new HttpParams()
       .set('page', page.page ?? 0)
       .set('size', page.size ?? 9);
-    if (page.sort)          params = params.set('sort', page.sort);
-    if (filter.type)        params = params.set('type', filter.type);
-    if (filter.minPrice != null) params = params.set('minPrice', filter.minPrice);
-    if (filter.maxPrice != null) params = params.set('maxPrice', filter.maxPrice);
-    if (filter.minCapacity != null) params = params.set('minCapacity', filter.minCapacity);
+    if (page.sort) params = params.set('sort', page.sort);
+
+    if (hasFilter) {
+      // Use dedicated filter endpoint
+      if (filter.type)                    params = params.set('type', filter.type);
+      if (filter.minPrice != null)        params = params.set('minPrice', filter.minPrice);
+      if (filter.maxPrice != null)        params = params.set('maxPrice', filter.maxPrice);
+      if (filter.minCapacity != null)     params = params.set('minCapacity', filter.minCapacity);
+      return this.http.get<ApiResponse<PageResponse<Room>>>(`${this.api}/filter`, { params });
+    }
     return this.http.get<ApiResponse<PageResponse<Room>>>(`${this.api}`, { params });
   }
 
@@ -41,7 +47,7 @@ export class RoomService {
   }
 
   toggleAvailability(id: number) {
-    return this.http.patch<ApiResponse<Room>>(`${this.api}/${id}/availability`, {});
+    return this.http.patch<ApiResponse<Room>>(`${this.api}/${id}/toggle-availability`, {});
   }
 
   delete(id: number) {

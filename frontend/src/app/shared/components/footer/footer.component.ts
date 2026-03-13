@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <footer class="bg-riad-950 text-riad-200 mt-24">
+    <footer class="bg-riad-950 dark:bg-gray-950 text-riad-200 mt-24">
       <!-- Zellige pattern strip -->
       <div class="h-2 bg-gradient-to-r from-riad-600 via-terracotta-500 to-morocco-gold"></div>
 
@@ -63,7 +63,7 @@ import { RouterLink } from '@angular/router';
         </div>
 
         <!-- Bottom bar -->
-        <div class="border-t border-riad-800 mt-12 pt-8 flex flex-col sm:flex-row
+        <div class="border-t border-riad-800 dark:border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row
                     items-center justify-between gap-4 text-xs text-riad-500">
           <p>© {{ year }} Riad Dar Atlas. Tous droits réservés.</p>
           <p>Conçu avec ❤️ au Maroc</p>

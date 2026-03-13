@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="flex flex-col items-center justify-center gap-3 py-16">
       <div [style.width.px]="size" [style.height.px]="size"
-           class="rounded-full border-4 border-riad-200 border-t-riad-600 animate-spin">
+           class="rounded-full border-4 border-riad-200 dark:border-gray-700 border-t-riad-600 animate-spin">
       </div>
       @if (message) {
-        <p class="text-sm text-gray-500">{{ message }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">{{ message }}</p>
       }
     </div>
   `,

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { RoomService } from '../../core/services/room.service';
 import { PhotoService } from '../../core/services/photo.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { Room } from '../../core/models';
+import { I18nService } from '../../core/services/i18n.service';
 import { format, addDays } from 'date-fns';
 
 @Component({
@@ -26,21 +27,20 @@ import { format, addDays } from 'date-fns';
     <!-- Content -->
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
       <p class="text-riad-400 text-sm font-medium tracking-[0.3em] uppercase mb-4">
-        بيت الضيافة الأصيل
+        {{ i18n.t.home.heroSubtitle }}
       </p>
       <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
         Riad Dar Atlas
       </h1>
       <p class="text-riad-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
-        Une demeure ancienne au cœur de la médina de Marrakech,
-        où l'architecture traditionnelle rencontre le confort contemporain.
+        {{ i18n.t.home.heroDesc }}
       </p>
 
       <!-- Quick search bar -->
       <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 border border-white/20 max-w-3xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div class="md:col-span-1">
-            <label class="block text-xs text-riad-300 mb-1">Arrivée</label>
+            <label class="block text-xs text-riad-300 mb-1">{{ i18n.t.home.checkIn }}</label>
             <input type="date" [(ngModel)]="search.checkIn"
                    [min]="today"
                    class="w-full bg-white/20 text-white rounded-lg px-3 py-2 text-sm
@@ -48,26 +48,28 @@ import { format, addDays } from 'date-fns';
                           placeholder-riad-300">
           </div>
           <div class="md:col-span-1">
-            <label class="block text-xs text-riad-300 mb-1">Départ</label>
+            <label class="block text-xs text-riad-300 mb-1">{{ i18n.t.home.checkOut }}</label>
             <input type="date" [(ngModel)]="search.checkOut"
                    [min]="search.checkIn || today"
                    class="w-full bg-white/20 text-white rounded-lg px-3 py-2 text-sm
                           border border-white/30 focus:outline-none focus:ring-2 focus:ring-riad-400">
           </div>
           <div class="md:col-span-1">
-            <label class="block text-xs text-riad-300 mb-1">Voyageurs</label>
+            <label class="block text-xs text-riad-300 mb-1">{{ i18n.t.home.guests }}</label>
             <select [(ngModel)]="search.guests"
                     class="w-full bg-white/20 text-white rounded-lg px-3 py-2 text-sm
                            border border-white/30 focus:outline-none focus:ring-2 focus:ring-riad-400">
               @for (n of [1,2,3,4,5,6]; track n) {
-                <option [value]="n" class="text-gray-900">{{ n }} personne{{ n > 1 ? 's' : '' }}</option>
+                <option [value]="n" class="text-gray-900">
+                  {{ n }} {{ n > 1 ? i18n.t.home.persons : i18n.t.home.person }}
+                </option>
               }
             </select>
           </div>
           <div>
             <label class="block text-xs text-transparent mb-1">Go</label>
             <button (click)="searchRooms()" class="btn-primary w-full btn-lg justify-center">
-              Rechercher
+              {{ i18n.t.home.search }}
             </button>
           </div>
         </div>
@@ -86,7 +88,7 @@ import { format, addDays } from 'date-fns';
   <!-- ══════════ VALUES STRIP ══════════ -->
   <section class="bg-riad-600 py-8">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      @for (val of values; track val.label) {
+      @for (val of values(); track val.icon) {
         <div class="text-white">
           <div class="text-3xl mb-1">{{ val.icon }}</div>
           <div class="font-semibold text-sm">{{ val.label }}</div>
@@ -98,32 +100,33 @@ import { format, addDays } from 'date-fns';
 
   <!-- ══════════ FEATURED ROOMS ══════════ -->
   <section class="py-24 px-4 max-w-7xl mx-auto">
-    <h2 class="section-title">Nos Chambres & Suites</h2>
-    <p class="section-subtitle">Chaque chambre est un voyage dans l'art de vivre marocain</p>
+    <h2 class="section-title">{{ i18n.t.home.featuredRooms }}</h2>
+    <p class="section-subtitle">{{ i18n.t.home.featuredRoomsDesc }}</p>
 
     <div class="divider-ornament mt-8 mb-12">
       <span class="text-2xl">✦</span>
     </div>
 
     @if (loadingRooms()) {
-      <app-loading-spinner message="Chargement des chambres…" />
+      <app-loading-spinner [message]="i18n.t.common.loading" />
     } @else {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (room of featuredRooms(); track room.id) {
           <a [routerLink]="['/chambres', room.id]"
-             class="card group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+             class="card group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1
+                    dark:bg-gray-800 dark:hover:shadow-gray-900/60">
             <!-- Room image -->
             <div class="relative overflow-hidden aspect-[4/3]">
-              <div class="w-full h-full bg-gradient-to-br from-riad-200 to-riad-300 flex
-                          items-center justify-center text-riad-500 text-4xl font-display">
-                @if (room.coverPhotoUrl) {
-                  <img [src]="room.coverPhotoUrl" [alt]="room.name"
+              <div class="w-full h-full bg-gradient-to-br from-riad-200 to-riad-300
+                          dark:from-gray-700 dark:to-gray-600
+                          flex items-center justify-center text-riad-500 text-4xl font-display">
+                @if (getCoverPhotoUrl(room)) {
+                  <img [src]="getCoverPhotoUrl(room)" [alt]="room.name"
                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 } @else {
                   🏡
                 }
               </div>
-              <!-- Badge type -->
               <div class="absolute top-3 left-3">
                 <span class="badge bg-riad-600 text-white text-xs">
                   {{ room.typeName }}
@@ -133,17 +136,17 @@ import { format, addDays } from 'date-fns';
             <!-- Info -->
             <div class="p-5">
               <div class="flex items-start justify-between mb-2">
-                <h3 class="font-display font-semibold text-lg text-riad-900">{{ room.name }}</h3>
+                <h3 class="font-display font-semibold text-lg text-riad-900 dark:text-riad-200">{{ room.name }}</h3>
                 <div class="text-right flex-shrink-0 ml-2">
-                  <span class="text-riad-600 font-bold">{{ room.pricePerNight | number }} MAD</span>
-                  <span class="text-gray-400 text-xs block">/ nuit</span>
+                  <span class="text-riad-600 dark:text-riad-400 font-bold">{{ room.pricePerNight | number }} MAD</span>
+                  <span class="text-gray-400 dark:text-gray-500 text-xs block">{{ i18n.t.rooms.perNight }}</span>
                 </div>
               </div>
-              <p class="text-gray-500 text-sm line-clamp-2 mb-4">{{ room.description }}</p>
-              <div class="flex items-center gap-4 text-xs text-gray-400">
-                <span>👥 {{ room.capacity }} pers.</span>
+              <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-4">{{ getRoomDescription(room) }}</p>
+              <div class="flex items-center gap-4 text-xs text-gray-400 dark:text-gray-500">
+                <span>👥 {{ room.capacity }}</span>
                 <span>📐 {{ room.surface }} m²</span>
-                <span>✨ {{ room.amenities.length }} équipements</span>
+                <span>✨ {{ room.amenities.length }}</span>
               </div>
             </div>
           </a>
@@ -151,18 +154,16 @@ import { format, addDays } from 'date-fns';
       </div>
       <div class="text-center mt-12">
         <a routerLink="/chambres" class="btn-secondary btn-lg">
-          Voir toutes les chambres
+          {{ i18n.t.home.viewAll }}
         </a>
       </div>
     }
   </section>
 
   <!-- ══════════ GALLERY STRIP ══════════ -->
-  <section class="bg-riad-950 py-20">
+  <section class="bg-riad-950 dark:bg-gray-950 py-20">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="section-title text-white">Notre Galerie</h2>
-      <p class="section-subtitle text-riad-400">Découvrez la beauté de notre demeure</p>
-
+      <h2 class="section-title text-white">Galerie</h2>
       <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
         @for (photo of galleryPhotos(); track photo.id; let i = $index) {
           <div class="overflow-hidden rounded-xl aspect-square"
@@ -191,10 +192,10 @@ import { format, addDays } from 'date-fns';
   </section>
 
   <!-- ══════════ HOW TO BOOK ══════════ -->
-  <section class="py-20 px-4 bg-riad-50">
+  <section class="py-20 px-4 bg-riad-50 dark:bg-gray-900">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="section-title">Comment réserver en 3 étapes</h2>
-      <p class="section-subtitle">Un processus simple et rapide, sans inscription</p>
+      <h2 class="section-title">{{ i18n.t.home.howItWorks }}</h2>
+      <p class="section-subtitle">{{ i18n.t.home.howItWorksDesc }}</p>
 
       <div class="divider-ornament mt-6 mb-12">
         <span class="text-2xl">✦</span>
@@ -202,19 +203,19 @@ import { format, addDays } from 'date-fns';
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">1</div>
-          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Choisissez une chambre</h3>
-          <p class="text-gray-500 text-sm">Parcourez nos chambres et suites, découvrez les photos et les équipements.</p>
+          <div class="w-14 h-14 rounded-full bg-riad-100 dark:bg-riad-900 text-riad-600 dark:text-riad-300 flex items-center justify-center text-2xl mx-auto mb-4">1</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 dark:text-riad-200 mb-2">{{ i18n.t.home.step1Title }}</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">{{ i18n.t.home.step1Desc }}</p>
         </div>
         <div class="card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">2</div>
-          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Remplissez le formulaire</h3>
-          <p class="text-gray-500 text-sm">Indiquez vos dates, vos coordonnées et envoyez votre demande en quelques clics.</p>
+          <div class="w-14 h-14 rounded-full bg-riad-100 dark:bg-riad-900 text-riad-600 dark:text-riad-300 flex items-center justify-center text-2xl mx-auto mb-4">2</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 dark:text-riad-200 mb-2">{{ i18n.t.home.step2Title }}</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">{{ i18n.t.home.step2Desc }}</p>
         </div>
         <div class="card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-riad-100 text-riad-600 flex items-center justify-center text-2xl mx-auto mb-4">3</div>
-          <h3 class="font-display font-semibold text-lg text-riad-900 mb-2">Recevez la confirmation</h3>
-          <p class="text-gray-500 text-sm">Notre équipe vous contacte rapidement pour confirmer votre réservation.</p>
+          <div class="w-14 h-14 rounded-full bg-riad-100 dark:bg-riad-900 text-riad-600 dark:text-riad-300 flex items-center justify-center text-2xl mx-auto mb-4">3</div>
+          <h3 class="font-display font-semibold text-lg text-riad-900 dark:text-riad-200 mb-2">{{ i18n.t.home.step3Title }}</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">{{ i18n.t.home.step3Desc }}</p>
         </div>
       </div>
     </div>
@@ -222,13 +223,13 @@ import { format, addDays } from 'date-fns';
 
   <!-- ══════════ CTA ══════════ -->
   <section class="py-24 px-4 text-center max-w-3xl mx-auto">
-    <h2 class="section-title mb-4">Prêt pour un séjour inoubliable?</h2>
-    <p class="text-gray-500 text-lg mb-10">
-      Réservez dès maintenant et bénéficiez d'un accueil traditionnel marocain chaleureux.
+    <h2 class="section-title mb-4">{{ i18n.t.home.ctaTitle }}</h2>
+    <p class="text-gray-500 dark:text-gray-400 text-lg mb-10">
+      {{ i18n.t.home.ctaDesc }}
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a routerLink="/chambres" class="btn-primary btn-lg">
-        Voir les chambres
+        {{ i18n.t.home.viewRooms }}
       </a>
     </div>
   </section>
@@ -238,6 +239,7 @@ export class HomeComponent implements OnInit {
   private readonly roomService  = inject(RoomService);
   private readonly photoService = inject(PhotoService);
   private readonly router       = inject(Router);
+  readonly i18n                 = inject(I18nService);
 
   readonly featuredRooms   = signal<Room[]>([]);
   readonly galleryPhotos   = signal<any[]>([]);
@@ -246,12 +248,12 @@ export class HomeComponent implements OnInit {
 
   readonly today = format(new Date(), 'yyyy-MM-dd');
 
-  readonly values = [
-    { icon: '🕌', label: 'Architecture authentique',     desc: 'Bâtiment du XIXe siècle' },
-    { icon: '⭐', label: 'Service personnalisé',          desc: 'Disponible 24h/24' },
-    { icon: '🌿', label: 'Jardin & patio',               desc: 'Oasis de sérénité' },
-    { icon: '🍵', label: 'Petit-déjeuner marocain',      desc: 'Inclus sur demande' },
-  ];
+  readonly values = computed(() => [
+    { icon: '🕌', label: this.i18n.t.home.v1Label, desc: this.i18n.t.home.v1Desc },
+    { icon: '⭐', label: this.i18n.t.home.v2Label, desc: this.i18n.t.home.v2Desc },
+    { icon: '🌿', label: this.i18n.t.home.v3Label, desc: this.i18n.t.home.v3Desc },
+    { icon: '🍵', label: this.i18n.t.home.v4Label, desc: this.i18n.t.home.v4Desc },
+  ]);
 
   search = {
     checkIn:  this.today,
@@ -272,6 +274,21 @@ export class HomeComponent implements OnInit {
         guests:   this.search.guests,
       },
     });
+  }
+
+  getCoverPhotoUrl(room: Room): string | null {
+    if (room.coverPhotoUrl) return room.coverPhotoUrl;
+    const cover = (room as any).coverPhoto;
+    if (cover?.fileUrl) return cover.fileUrl;
+    if (room.photos?.length > 0) return room.photos[0].fileUrl;
+    return null;
+  }
+
+  getRoomDescription(room: Room): string {
+    const lang = this.i18n.lang();
+    if (lang === 'ar' && room.descriptionAr) return room.descriptionAr;
+    if (lang === 'fr' && room.descriptionFr) return room.descriptionFr;
+    return room.description;
   }
 
   private loadRooms() {
