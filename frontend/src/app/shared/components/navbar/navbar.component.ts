@@ -42,6 +42,14 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
               {{ i18n.t.nav.rooms }}
             </a>
 
+            <a routerLink="/contact" routerLinkActive="font-semibold"
+               class="text-sm transition-colors hover:text-riad-400"
+               [class.text-gray-700]="theme.theme() === 'light'"
+               [class.text-white]="!scrolled() && theme.theme() === 'dark'"
+               [class.text-gray-300]="scrolled() && theme.theme() === 'dark'">
+              {{ i18n.t.nav.contact }}
+            </a>
+
             <!-- Language switcher -->
             <div class="relative" data-menu>
               <button (click)="langOpen.set(!langOpen())"
@@ -175,6 +183,10 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
             <a routerLink="/chambres" (click)="mobileOpen.set(false)"
                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-riad-50 dark:hover:bg-gray-800 rounded-lg">
               {{ i18n.t.nav.rooms }}
+            </a>
+            <a routerLink="/contact" (click)="mobileOpen.set(false)"
+               class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-riad-50 dark:hover:bg-gray-800 rounded-lg">
+              {{ i18n.t.nav.contact }}
             </a>
             <!-- Language selection -->
             <div class="px-4 py-2 flex items-center gap-2">
