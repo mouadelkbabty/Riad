@@ -6,10 +6,39 @@ export interface Translations {
   // Navbar
   nav: {
     rooms: string;
+    contact: string;
     admin: string;
     book: string;
     logout: string;
     toggleDark: string;
+  };
+  // Contact page
+  contact: {
+    title: string;
+    subtitle: string;
+    whatsappTitle: string;
+    whatsappDesc: string;
+    whatsappBtn: string;
+    instagramTitle: string;
+    instagramDesc: string;
+    instagramBtn: string;
+    emailTitle: string;
+    emailDesc: string;
+    emailBtn: string;
+    formTitle: string;
+    name: string;
+    namePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    subject: string;
+    subjectPlaceholder: string;
+    message: string;
+    messagePlaceholder: string;
+    send: string;
+    required: string;
+    invalidEmail: string;
+    successMsg: string;
+    whatsappMessage: string;
   };
   // Home page
   home: {
@@ -108,10 +137,38 @@ export interface Translations {
 const FR: Translations = {
   nav: {
     rooms: 'Chambres',
+    contact: 'Contact',
     admin: 'Administration',
     book: 'Réserver',
     logout: 'Déconnexion',
     toggleDark: 'Mode sombre',
+  },
+  contact: {
+    title: 'Contactez-nous',
+    subtitle: 'Nous sommes là pour vous. Choisissez votre moyen de contact préféré.',
+    whatsappTitle: 'WhatsApp',
+    whatsappDesc: 'Chattez avec nous en temps réel sur WhatsApp.',
+    whatsappBtn: 'Ouvrir WhatsApp',
+    instagramTitle: 'Instagram',
+    instagramDesc: 'Suivez nos actualités et découvrez nos photos.',
+    instagramBtn: 'Voir notre Instagram',
+    emailTitle: 'Email',
+    emailDesc: 'Envoyez-nous un message, nous vous répondrons rapidement.',
+    emailBtn: 'Envoyer un email',
+    formTitle: 'Envoyer un message',
+    name: 'Nom complet',
+    namePlaceholder: 'Jean Dupont',
+    email: 'Adresse email',
+    emailPlaceholder: 'jean@exemple.com',
+    subject: 'Sujet',
+    subjectPlaceholder: 'Demande de réservation',
+    message: 'Message',
+    messagePlaceholder: 'Votre message…',
+    send: 'Envoyer',
+    required: 'Ce champ est obligatoire',
+    invalidEmail: 'Adresse email invalide',
+    successMsg: 'Votre client email va s\'ouvrir. Merci !',
+    whatsappMessage: 'Bonjour, je souhaite obtenir des informations sur le Riad Lee.',
   },
   home: {
     heroSubtitle: 'بيت الضيافة الأصيل',
@@ -204,10 +261,38 @@ const FR: Translations = {
 const EN: Translations = {
   nav: {
     rooms: 'Rooms',
+    contact: 'Contact',
     admin: 'Administration',
     book: 'Book',
     logout: 'Logout',
     toggleDark: 'Dark mode',
+  },
+  contact: {
+    title: 'Contact Us',
+    subtitle: 'We are here for you. Choose your preferred way to reach us.',
+    whatsappTitle: 'WhatsApp',
+    whatsappDesc: 'Chat with us in real time on WhatsApp.',
+    whatsappBtn: 'Open WhatsApp',
+    instagramTitle: 'Instagram',
+    instagramDesc: 'Follow our updates and discover our photos.',
+    instagramBtn: 'View our Instagram',
+    emailTitle: 'Email',
+    emailDesc: 'Send us a message and we will reply promptly.',
+    emailBtn: 'Send an email',
+    formTitle: 'Send a message',
+    name: 'Full name',
+    namePlaceholder: 'John Doe',
+    email: 'Email address',
+    emailPlaceholder: 'john@example.com',
+    subject: 'Subject',
+    subjectPlaceholder: 'Booking enquiry',
+    message: 'Message',
+    messagePlaceholder: 'Your message…',
+    send: 'Send',
+    required: 'This field is required',
+    invalidEmail: 'Invalid email address',
+    successMsg: 'Your email client will open. Thank you!',
+    whatsappMessage: 'Hello, I would like to get information about Riad Lee.',
   },
   home: {
     heroSubtitle: 'An Authentic Guesthouse',
@@ -300,10 +385,38 @@ const EN: Translations = {
 const AR: Translations = {
   nav: {
     rooms: 'الغرف',
+    contact: 'اتصل بنا',
     admin: 'الإدارة',
     book: 'احجز',
     logout: 'تسجيل الخروج',
     toggleDark: 'الوضع الداكن',
+  },
+  contact: {
+    title: 'اتصل بنا',
+    subtitle: 'نحن هنا من أجلك. اختر طريقة التواصل المفضلة لديك.',
+    whatsappTitle: 'واتساب',
+    whatsappDesc: 'تحدث معنا في الوقت الفعلي عبر واتساب.',
+    whatsappBtn: 'فتح واتساب',
+    instagramTitle: 'إنستغرام',
+    instagramDesc: 'تابع أخبارنا واكتشف صورنا.',
+    instagramBtn: 'زيارة إنستغرامنا',
+    emailTitle: 'البريد الإلكتروني',
+    emailDesc: 'أرسل لنا رسالة وسنرد عليك في أقرب وقت.',
+    emailBtn: 'إرسال بريد إلكتروني',
+    formTitle: 'أرسل رسالة',
+    name: 'الاسم الكامل',
+    namePlaceholder: 'محمد أحمد',
+    email: 'البريد الإلكتروني',
+    emailPlaceholder: 'mohammed@example.com',
+    subject: 'الموضوع',
+    subjectPlaceholder: 'استفسار عن الحجز',
+    message: 'الرسالة',
+    messagePlaceholder: 'رسالتك…',
+    send: 'إرسال',
+    required: 'هذا الحقل مطلوب',
+    invalidEmail: 'عنوان البريد الإلكتروني غير صالح',
+    successMsg: 'سيتم فتح تطبيق البريد الإلكتروني. شكراً!',
+    whatsappMessage: 'مرحباً، أود الحصول على معلومات حول رياض لي.',
   },
   home: {
     heroSubtitle: 'بيت الضيافة الأصيل',
@@ -396,10 +509,38 @@ const AR: Translations = {
 const ES: Translations = {
   nav: {
     rooms: 'Habitaciones',
+    contact: 'Contacto',
     admin: 'Administración',
     book: 'Reservar',
     logout: 'Cerrar sesión',
     toggleDark: 'Modo oscuro',
+  },
+  contact: {
+    title: 'Contáctenos',
+    subtitle: 'Estamos aquí para usted. Elija su forma de contacto preferida.',
+    whatsappTitle: 'WhatsApp',
+    whatsappDesc: 'Chatea con nosotros en tiempo real por WhatsApp.',
+    whatsappBtn: 'Abrir WhatsApp',
+    instagramTitle: 'Instagram',
+    instagramDesc: 'Síganos y descubra nuestras fotos.',
+    instagramBtn: 'Ver nuestro Instagram',
+    emailTitle: 'Correo electrónico',
+    emailDesc: 'Envíenos un mensaje y le responderemos pronto.',
+    emailBtn: 'Enviar correo',
+    formTitle: 'Enviar un mensaje',
+    name: 'Nombre completo',
+    namePlaceholder: 'Juan García',
+    email: 'Correo electrónico',
+    emailPlaceholder: 'juan@ejemplo.com',
+    subject: 'Asunto',
+    subjectPlaceholder: 'Consulta de reserva',
+    message: 'Mensaje',
+    messagePlaceholder: 'Su mensaje…',
+    send: 'Enviar',
+    required: 'Este campo es obligatorio',
+    invalidEmail: 'Dirección de correo inválida',
+    successMsg: '¡Su cliente de correo se abrirá. ¡Gracias!',
+    whatsappMessage: 'Hola, me gustaría obtener información sobre el Riad Lee.',
   },
   home: {
     heroSubtitle: 'Casa de huéspedes auténtica',

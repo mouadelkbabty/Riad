@@ -28,7 +28,12 @@ export const routes: Routes = [
     title: 'Demande de réservation — Riad Dar Atlas',
   },
   {
-    path: 'auth/login',
+    path: 'contact',
+    loadComponent: () =>
+      import('./features/contact/contact.component').then(m => m.ContactComponent),
+    title: 'Contact — Riad Lee',
+  },
+  {
     loadComponent: () =>
       import('./features/auth/login/login.component').then(m => m.LoginComponent),
     title: 'Connexion — Riad Lee',
