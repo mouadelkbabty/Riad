@@ -38,6 +38,7 @@ export interface Translations {
     required: string;
     invalidEmail: string;
     successMsg: string;
+    whatsappMessage: string;
   };
   // Home page
   home: {
@@ -167,6 +168,7 @@ const FR: Translations = {
     required: 'Ce champ est obligatoire',
     invalidEmail: 'Adresse email invalide',
     successMsg: 'Votre client email va s\'ouvrir. Merci !',
+    whatsappMessage: 'Bonjour, je souhaite obtenir des informations sur le Riad Lee.',
   },
   home: {
     heroSubtitle: 'بيت الضيافة الأصيل',
@@ -290,6 +292,7 @@ const EN: Translations = {
     required: 'This field is required',
     invalidEmail: 'Invalid email address',
     successMsg: 'Your email client will open. Thank you!',
+    whatsappMessage: 'Hello, I would like to get information about Riad Lee.',
   },
   home: {
     heroSubtitle: 'An Authentic Guesthouse',
@@ -413,6 +416,7 @@ const AR: Translations = {
     required: 'هذا الحقل مطلوب',
     invalidEmail: 'عنوان البريد الإلكتروني غير صالح',
     successMsg: 'سيتم فتح تطبيق البريد الإلكتروني. شكراً!',
+    whatsappMessage: 'مرحباً، أود الحصول على معلومات حول رياض لي.',
   },
   home: {
     heroSubtitle: 'بيت الضيافة الأصيل',
@@ -536,6 +540,7 @@ const ES: Translations = {
     required: 'Este campo es obligatorio',
     invalidEmail: 'Dirección de correo inválida',
     successMsg: '¡Su cliente de correo se abrirá. ¡Gracias!',
+    whatsappMessage: 'Hola, me gustaría obtener información sobre el Riad Lee.',
   },
   home: {
     heroSubtitle: 'Casa de huéspedes auténtica',

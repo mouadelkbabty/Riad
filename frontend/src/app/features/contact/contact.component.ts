@@ -24,7 +24,7 @@ import { I18nService } from '../../core/services/i18n.service';
         </div>
       </section>
 
-      <!-- Colour strip -->
+      <!-- Color strip -->
       <div class="h-1.5 bg-gradient-to-r from-riad-600 via-terracotta-500 to-morocco-gold"></div>
 
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -213,7 +213,7 @@ export class ContactComponent {
   readonly contactEmail = 'contact@riad-lee.ma';
 
   get whatsappHref(): string {
-    const msg = encodeURIComponent('Bonjour, je souhaite obtenir des informations sur le Riad Lee.');
+    const msg = encodeURIComponent(this.i18n.t.contact.whatsappMessage);
     return `https://wa.me/${this.whatsappPhone}?text=${msg}`;
   }
 
