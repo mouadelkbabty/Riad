@@ -27,71 +27,71 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final AccessDeniedHandler accessDeniedHandler;
+        private final JwtAuthFilter jwtAuthFilter;
+        private final AuthenticationProvider authenticationProvider;
+        private final AuthenticationEntryPoint authenticationEntryPoint;
+        private final AccessDeniedHandler accessDeniedHandler;
 
-    private static final String[] PUBLIC_GET_ENDPOINTS = {
-            "/api/v1/rooms",
-            "/api/v1/rooms/**",
-            "/api/v1/photos",
-            "/api/v1/photos/**",
-            "/api/v1/gallery/**",
-            "/api/v1/reservations/rooms/*/occupied-dates",
-            "/api/chatbot/rooms",
-            "/api/chatbot/available-rooms",
-            "/api/chatbot/room/**",
-            "/actuator/health",
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/swagger-ui.html"
-    };
+        private static final String[] PUBLIC_GET_ENDPOINTS = {
+                        "/api/v1/rooms",
+                        "/api/v1/rooms/**",
+                        "/api/v1/photos",
+                        "/api/v1/photos/**",
+                        "/api/v1/gallery/**",
+                        "/api/v1/reservations/rooms/*/occupied-dates",
+                        "/api/chatbot/rooms",
+                        "/api/chatbot/available-rooms",
+                        "/api/chatbot/room/**",
+                        "/actuator/health",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+        };
 
-    private static final String[] PUBLIC_POST_ENDPOINTS = {
-            "/api/v1/auth/register",
-            "/api/v1/auth/login",
-            "/api/v1/auth/refresh-token",
-            "/api/v1/auth/forgot-password",
-            "/api/v1/auth/reset-password",
-            "/api/v1/reservations/guest-request",
-            "/api/chatbot/message"
-    };
+        private static final String[] PUBLIC_POST_ENDPOINTS = {
+                        "/api/v1/auth/register",
+                        "/api/v1/auth/login",
+                        "/api/v1/auth/refresh-token",
+                        "/api/v1/auth/forgot-password",
+                        "/api/v1/auth/reset-password",
+                        "/api/v1/reservations/guest-request",
+                        "/api/chatbot/message"
+        };
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
-                        .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(authenticationEntryPoint)
-                        .accessDeniedHandler(accessDeniedHandler))
-                .build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
+                                                .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
+                                                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                                                .anyRequest().authenticated())
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .exceptionHandling(ex -> ex
+                                                .authenticationEntryPoint(authenticationEntryPoint)
+                                                .accessDeniedHandler(accessDeniedHandler))
+                                .build();
+        }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://localhost:5173",
-                "https://*.riad.ma", "https://riad.ma"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With",
-                "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
-        config.setExposedHeaders(List.of("Authorization", "Content-Disposition"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://localhost:4200",
+                                "http://localhost:5173", "https://*.riad.ma", "https://riad.ma"));
+                config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                config.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With",
+                                "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+                config.setExposedHeaders(List.of("Authorization", "Content-Disposition"));
+                config.setAllowCredentials(true);
+                config.setMaxAge(3600L);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
-        return source;
-    }
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/api/**", config);
+                return source;
+        }
 }

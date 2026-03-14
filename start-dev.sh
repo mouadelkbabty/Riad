@@ -10,7 +10,7 @@ REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
-echo "║     🕌  Riad Dar Atlas — Dev Launcher         ║"
+echo "║     🕌  Riad Lee — Dev Launcher         ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 

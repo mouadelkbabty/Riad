@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service
@@ -48,8 +49,8 @@ public class RoomService {
     }
 
     public PageResponse<RoomResponse> filterRooms(RoomType type, BigDecimal minPrice,
-                                                   BigDecimal maxPrice, Integer minCapacity,
-                                                   int page, int size) {
+            BigDecimal maxPrice, Integer minCapacity,
+            int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("pricePerNight").ascending());
         return PageResponse.from(
                 roomRepository.findByFilters(type, minPrice, maxPrice, minCapacity, pageable)
@@ -68,7 +69,7 @@ public class RoomService {
                 .pricePerNight(request.pricePerNight())
                 .capacity(request.capacity())
                 .surface(request.surface())
-                .amenities(request.amenities() != null ? request.amenities() : List.of())
+                .amenities(new LinkedHashSet<>(request.amenities() != null ? request.amenities() : List.of()))
                 .build();
         Room saved = roomRepository.save(room);
         log.info("Chambre créée: {} (ID: {})", saved.getName(), saved.getId());
@@ -141,6 +142,8 @@ public class RoomService {
                 .findFirst()
                 .orElse(photos.isEmpty() ? null : photos.get(0));
 
+        String coverPhotoUrl = coverPhoto != null ? coverPhoto.fileUrl() : null;
+
         return new RoomResponse(
                 room.getId(),
                 room.getName(),
@@ -153,8 +156,9 @@ public class RoomService {
                 room.getCapacity(),
                 room.getSurface(),
                 room.isAvailable(),
-                room.getAmenities(),
+                List.copyOf(room.getAmenities()),
                 photos,
-                coverPhoto);
+                coverPhoto,
+                coverPhotoUrl);
     }
 }
