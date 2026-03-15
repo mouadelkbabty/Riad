@@ -44,7 +44,7 @@ class RoomServiceTest {
                 .id(1L).name("Suite Andalouse").type(RoomType.SUITE)
                 .description("desc").descriptionFr("desc fr").descriptionAr("وصف")
                 .pricePerNight(BigDecimal.valueOf(1800)).capacity(4).surface(60)
-                .available(true).amenities(List.of("WiFi", "Hammam")).build();
+                .available(true).amenities(new java.util.LinkedHashSet<>(List.of("WiFi", "Hammam"))).build();
 
         roomRequest = new RoomRequest(
                 "Suite Andalouse", "desc", "desc fr", "وصف",

@@ -1,5 +1,6 @@
 package com.riad.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.riad.repository.UserRepository;
 import com.riad.security.CustomAccessDeniedHandler;
 import com.riad.security.CustomAuthenticationEntryPoint;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executor;
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -56,12 +58,12 @@ public class ApplicationConfig {
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
+        return new CustomAuthenticationEntryPoint(objectMapper);
     }
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
+        return new CustomAccessDeniedHandler(objectMapper);
     }
 
     @Bean(name = "emailTaskExecutor")
