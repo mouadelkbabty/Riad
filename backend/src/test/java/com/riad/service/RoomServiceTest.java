@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -30,7 +31,8 @@ import static org.mockito.Mockito.*;
 @DisplayName("RoomService - Tests Unitaires")
 class RoomServiceTest {
 
-    @Mock private RoomRepository roomRepository;
+    @Mock
+    private RoomRepository roomRepository;
 
     @InjectMocks
     private RoomService roomService;
@@ -44,7 +46,7 @@ class RoomServiceTest {
                 .id(1L).name("Suite Andalouse").type(RoomType.SUITE)
                 .description("desc").descriptionFr("desc fr").descriptionAr("وصف")
                 .pricePerNight(BigDecimal.valueOf(1800)).capacity(4).surface(60)
-                .available(true).amenities(new java.util.LinkedHashSet<>(List.of("WiFi", "Hammam"))).build();
+                .available(true).amenities(Set.of("WiFi", "Hammam")).build();
 
         roomRequest = new RoomRequest(
                 "Suite Andalouse", "desc", "desc fr", "وصف",
@@ -112,7 +114,7 @@ class RoomServiceTest {
     @Test
     @DisplayName("searchAvailableRooms() - Exception si dates invalides")
     void searchAvailableRooms_WithInvalidDates_ThrowsException() {
-        LocalDate checkIn  = LocalDate.now().plusDays(5);
+        LocalDate checkIn = LocalDate.now().plusDays(5);
         LocalDate checkOut = LocalDate.now().plusDays(3);
 
         assertThatThrownBy(() -> roomService.searchAvailableRooms(checkIn, checkOut, 2))

@@ -34,6 +34,7 @@ export const routes: Routes = [
     title: 'Contact — Riad Lee',
   },
   {
+    path: 'login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(m => m.LoginComponent),
     title: 'Connexion — Riad Lee',
